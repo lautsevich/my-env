@@ -1,8 +1,6 @@
 #!/bin/bash
 
-sudo add-apt-repository -y ppa:atareao/telegram
-sudo apt-get update
-sudo apt-get install -y telegram
+sudo snap install telegram-desktop
 
 APP_NAME=Telegram
 AUTOSTART_FILE=$APP_NAME.desktop
@@ -23,3 +21,5 @@ Comment[en_US]=
 Comment=" >> $AUTOSTART_FILE
 
 sudo mv $AUTOSTART_FILE $AUTOSTART_PATH
+
+# TODO: Doesn't work autostart
