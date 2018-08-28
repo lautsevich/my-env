@@ -11,3 +11,5 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 
 sudo apt-get install -y mysql-server
 sudo apt-get install -y mysql-client
+
+# TODO: Move password to config
