@@ -30,7 +30,7 @@ bash skype.sh $INSTALL_BULK
 bash telegram.sh $INSTALL_BULK
 bash slack.sh $INSTALL_BULK
 bash stride.sh $INSTALL_BULK
-# bash viber.sh $INSTALL_BULK
+bash viber.sh $INSTALL_BULK
 
 # MEDIA
 bash vlc.sh $INSTALL_BULK

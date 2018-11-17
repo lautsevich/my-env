@@ -1,23 +1,32 @@
 #!/bin/bash
 
-cd /tmp
 wget http://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
-sudo dpkg -i viber.deb
+sudo dpkg-deb -x viber.deb viber
+sudo dpkg-deb --control viber.deb viber/DEBIAN
+sudo sed -i -e 's/libcurl3/libcurl4/g' viber/DEBIAN/control
+
+dpkg -b viber viberlibcurl4.deb
+sudo dpkg -i viberlibcurl4.deb
 sudo rm -rf viber.deb
+sudo rm -rf viber/
+sudo rm -rf viberlibcurl4.deb
 
 APP_NAME=Viber
+AUTOSTART_FILE=$APP_NAME.desktop
 APP_EXEC="/opt/viber/Viber %u"
-AUTOSTART_CONFIG=~/.config/autostart/$APP_NAME.desktop
+AUTOSTART_PATH=~/.config/autostart/
 
-sudo touch $AUTOSTART_CONFIG
+touch $AUTOSTART_FILE
 
-sudo echo "[Desktop Entry]" >> $AUTOSTART_CONFIG
-sudo echo "Type=Application" >> $AUTOSTART_CONFIG
-sudo echo "Exec=$APP_EXEC" >> $AUTOSTART_CONFIG
-sudo echo "Hidden=false" >> $AUTOSTART_CONFIG
-sudo echo "NoDisplay=false" >> $AUTOSTART_CONFIG
-sudo echo "X-GNOME-Autostart-enabled=true" >> $AUTOSTART_CONFIG
-sudo echo "Name[en_US]=$APP_NAME" >> $AUTOSTART_CONFIG
-sudo echo "Name=$APP_NAME" >> $AUTOSTART_CONFIG
-sudo echo "Comment[en_US]=" >> $AUTOSTART_CONFIG
-sudo echo "Comment=" >> $AUTOSTART_CONFIG
+echo "[Desktop Entry]
+Type=Application
+Exec=$APP_EXEC
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=$APP_NAME
+Name=$APP_NAME
+Comment[en_US]=
+Comment=" >> $AUTOSTART_FILE
+
+sudo mv $AUTOSTART_FILE $AUTOSTART_PATH
