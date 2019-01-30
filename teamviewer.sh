@@ -6,3 +6,5 @@ sudo apt-get install -y libdbus-1-3:i386 libasound2:i386 libexpat1:i386 libfontc
 wget https://download.teamviewer.com/download/teamviewer_i386.deb
 sudo dpkg -i teamviewer*.deb
 sudo rm teamviewer*.deb
+
+sudo apt --fix-broken install
