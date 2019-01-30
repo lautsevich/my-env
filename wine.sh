@@ -6,4 +6,4 @@ if [[ "$INSTALL_BULK" = false ]]; then
     sudo apt-get update
 fi
 
-sudo apt-get install -y wine
+sudo apt-get install -y wine64
