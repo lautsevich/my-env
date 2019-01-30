@@ -17,4 +17,4 @@ sudo apt-get install -y php-mbstring
 sudo apt-get install -y php-zip
 sudo apt-get install -y php-pear
 
-# TODO: Add PHP version setup
+# TODO: Add PHP version to config
