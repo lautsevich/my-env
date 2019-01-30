@@ -2,6 +2,10 @@
 
 # INSTALL_BULK=true
 
+# Update OS
+sudo apt-get update
+sudo apt-get upgrade
+
 # Remove unnecesary apps
 bash clean-ubuntu.sh
 
