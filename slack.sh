@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.2.1-amd64.deb
+wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.7-amd64.deb
 sudo dpkg -i slack-desktop-*.*.*-amd64.deb
 sudo rm -rf slack-desktop-*.*.*-amd64.deb
 sudo apt-get -f install -y
