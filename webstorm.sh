@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd /tmp
-wget https://download.jetbrains.com/webstorm/WebStorm-2017.3.1.tar.gz
+wget https://download.jetbrains.com/webstorm/WebStorm-2018.3.3.tar.gz
 tar xvf WebStorm-*.tar.gz
 sudo rm -rf WebStorm-*.tar.gz
 sudo mv WebStorm-*/ /opt/webstorm/
