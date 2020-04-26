@@ -17,6 +17,6 @@
     - name: Install OBS Studio
       snap:
         name: obs-studio
-    - name: Install FFmpeg (libavcodec-extra)
-      snap:
-        name: ffmpeg
+    - name: Install Ubuntu Restricted Extras
+      apt:
+        name: ubuntu-restricted-extras
