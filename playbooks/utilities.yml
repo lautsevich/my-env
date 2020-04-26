@@ -17,3 +17,6 @@
     - name: Install GNOME Tweaks
       apt:
         name: gnome-tweaks
+    - name: Install cURL
+      apt:
+        name: curl
