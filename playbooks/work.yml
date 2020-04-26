@@ -11,3 +11,6 @@
     - name: Install Chromium
       snap:
         name: chromium
+    - name: Install Opera
+      snap:
+        name: opera
