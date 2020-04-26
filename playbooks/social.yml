@@ -1,0 +1,4 @@
+- name: Install social apps
+  hosts: localhost
+  become: true
+  tasks:
