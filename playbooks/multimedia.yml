@@ -5,6 +5,9 @@
     - name: Install VLC
       apt:
         name: vlc
+    - name: Install Ace Stream Player
+      snap:
+        name: acestreamplayer
     - name: Install SimpleScreenRecorder
       apt:
         name: simplescreenrecorder
