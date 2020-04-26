@@ -1,0 +1,4 @@
+- name: Install common apps
+  hosts: localhost
+  become: true
+  tasks:
