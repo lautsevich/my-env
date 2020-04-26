@@ -10,3 +10,6 @@
       snap:
         name: slack
         classic: yes
+    - name: Install Telegram
+      snap:
+        name: telegram-desktop
