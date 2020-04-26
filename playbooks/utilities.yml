@@ -2,4 +2,6 @@
   hosts: localhost
   become: true
   tasks:
-
+    - name: Install KeePassXC
+      snap:
+        name: keepassxc
