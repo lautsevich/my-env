@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Install development apps
+  hosts: localhost
   become: true
   tasks:
     - name: Update apt package list
