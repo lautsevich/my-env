@@ -20,3 +20,6 @@
     - name: Install cURL
       apt:
         name: curl
+    - name: Install build-essential
+      apt:
+        name: build-essential
