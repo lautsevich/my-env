@@ -16,3 +16,6 @@
     - name: Install Discord
       snap:
         name: discord
+    - name: Install Viber (unofficial)
+      snap:
+        name: viber-unofficial
