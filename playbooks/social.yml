@@ -22,3 +22,6 @@
     - name: Install Facebook Messenger (port)
       snap:
         name: messengerport
+    - name: Install Zoom
+      snap:
+        name: zoom-client
