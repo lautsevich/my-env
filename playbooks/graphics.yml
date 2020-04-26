@@ -5,3 +5,6 @@
     - name: Install Inkscape
       snap:
         name: inkscape
+    - name: Install Figma
+      snap:
+        name: figma-linux
