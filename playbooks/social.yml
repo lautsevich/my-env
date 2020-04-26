@@ -13,3 +13,6 @@
     - name: Install Telegram
       snap:
         name: telegram-desktop
+    - name: Install Discord
+      snap:
+        name: discord
