@@ -14,3 +14,6 @@
     - name: Install Krusader
       apt:
         name: krusader
+    - name: Install GNOME Tweaks
+      apt:
+        name: gnome-tweaks
