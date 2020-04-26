@@ -14,3 +14,13 @@
     - name: Install Opera
       snap:
         name: opera
+    - name: Add Yandex Browser GPG key
+      apt_key:
+        url: https://repo.yandex.ru/yandex-browser/YANDEX-BROWSER-KEY.GPG
+    - name: Yandex Browser repository
+      apt_repository:
+        repo: deb [arch=amd64] http://repo.yandex.ru/yandex-browser/deb beta main
+        update_cache: yes
+    - name: Install Yandex Browser
+      apt:
+        name: yandex-browser-beta
