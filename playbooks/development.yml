@@ -10,3 +10,7 @@
     - name: Install GitKraken
       snap:
         name: gitkraken
+    - name: VS Code
+      snap:
+        name: code
+        classic: yes
