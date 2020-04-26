@@ -15,3 +15,7 @@
       snap:
         name: code
         classic: yes
+    - name: Install Ruby
+      snap:
+        name: ruby
+        classic: yes
