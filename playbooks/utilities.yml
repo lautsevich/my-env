@@ -23,3 +23,6 @@
     - name: Install build-essential
       apt:
         name: build-essential
+    - name: Install software-properties-common
+      apt:
+        name: software-properties-common
