@@ -4,3 +4,6 @@
     - name: Install VLC
       apt:
         name: vlc
+    - name: Install SimpleScreenRecorder
+      apt:
+        name: simplescreenrecorder
