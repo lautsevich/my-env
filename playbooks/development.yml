@@ -7,4 +7,6 @@
     - name: Install Git
       apt:
         name: git
-
+    - name: Install GitKraken
+      snap:
+        name: gitkraken
