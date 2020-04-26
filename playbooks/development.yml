@@ -22,3 +22,6 @@
     - name: Install Bundler
       gem:
         name: bundler
+    - name: Install Virtualbox
+      apt:
+        name: virtualbox
