@@ -1,0 +1,4 @@
+- name: Install graphics apps
+  hosts: localhost
+  become: true
+  tasks:
