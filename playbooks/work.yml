@@ -5,3 +5,9 @@
     - name: Update apt package list
       apt:
         update_cache: yes
+    - name: Install Firefox
+      apt:
+        name: firefox
+    - name: Install Chromium
+      snap:
+        name: chromium
