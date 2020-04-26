@@ -11,3 +11,6 @@
     - name: Install Midnight Commander
       apt:
         name: mc
+    - name: Install Krusader
+      apt:
+        name: krusader
