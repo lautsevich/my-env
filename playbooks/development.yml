@@ -1,7 +1,10 @@
 - hosts: localhost
   become: true
   tasks:
+    - name: Update apt package list
+      apt:
+        update_cache: yes
     - name: Install Git
       apt:
         name: git
-        update_cache: yes
+
