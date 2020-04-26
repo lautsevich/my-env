@@ -8,3 +8,6 @@
     - name: Install Figma
       snap:
         name: figma-linux
+    - name: Install ksnip
+      snap:
+        name: ksnip
