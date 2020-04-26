@@ -2,3 +2,7 @@
   hosts: localhost
   become: true
   tasks:
+    - name: Install Snapd
+      apt:
+        name: snapd
+
