@@ -17,7 +17,7 @@
     - name: Add Yandex Browser GPG key
       apt_key:
         url: https://repo.yandex.ru/yandex-browser/YANDEX-BROWSER-KEY.GPG
-    - name: Yandex Browser repository
+    - name: Add Yandex Browser repository
       apt_repository:
         repo: deb [arch=amd64] http://repo.yandex.ru/yandex-browser/deb beta main
         update_cache: yes
