@@ -1,0 +1,5 @@
+- name: Install utilities apps
+  hosts: localhost
+  become: true
+  tasks:
+
