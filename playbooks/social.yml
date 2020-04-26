@@ -19,3 +19,6 @@
     - name: Install Viber (unofficial)
       snap:
         name: viber-unofficial
+    - name: Install Facebook Messenger (port)
+      snap:
+        name: messengerport
