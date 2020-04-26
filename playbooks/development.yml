@@ -19,3 +19,6 @@
       snap:
         name: ruby
         classic: yes
+    - name: Install Bundler
+      gem:
+        name: bundler
