@@ -8,3 +8,6 @@
     - name: Install SimpleScreenRecorder
       apt:
         name: simplescreenrecorder
+    - name: Install Google Play Music Desktop Player
+      snap:
+        name: google-play-music-desktop-player
