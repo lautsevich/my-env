@@ -2,3 +2,7 @@
   hosts: localhost
   become: true
   tasks:
+    - name: Install Skype (--classic)
+      snap:
+        name: skype
+        classic: yes
