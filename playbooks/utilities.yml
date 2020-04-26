@@ -8,3 +8,6 @@
     - name: Install KeePassXC
       snap:
         name: keepassxc
+    - name: Install Midnight Commander
+      apt:
+        name: mc
