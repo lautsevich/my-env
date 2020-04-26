@@ -2,6 +2,10 @@
   hosts: localhost
   become: true
   tasks:
+    - name: Update apt package list
+      apt:
+        upgrade: "yes"
+        update_cache: yes
     - name: Install Snapd
       apt:
         name: snapd
