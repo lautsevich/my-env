@@ -6,3 +6,7 @@
       snap:
         name: skype
         classic: yes
+    - name: Install Slack (--classic)
+      snap:
+        name: slack
+        classic: yes
