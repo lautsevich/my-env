@@ -2,3 +2,6 @@
   hosts: localhost
   become: true
   tasks:
+    - name: Install Inkscape
+      snap:
+        name: inkscape
