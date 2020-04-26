@@ -25,3 +25,6 @@
     - name: Install Virtualbox
       apt:
         name: virtualbox
+    - name: Install Terraform
+      snap:
+        name: terraform
