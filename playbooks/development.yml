@@ -3,7 +3,6 @@
   become: true
   vars:
     NODEJS_VERSION: "12"
-    ansible_distribution_release: "eoan"
   roles:
     - geerlingguy.git
     - geerlingguy.composer
