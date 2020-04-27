@@ -13,7 +13,7 @@
   - andrewrothstein.curl
   - anxs.build-essential
   - xussof.software_software_properties_common
-tasks:
+  tasks:
     - name: Social tasks
       include_tasks:
         file: social.yml
