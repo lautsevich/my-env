@@ -24,3 +24,27 @@
     - name: Install Yandex Browser
       apt:
         name: yandex-browser-beta
+    - name: Ensure i386 arch support
+      lineinfile:
+        dest: /var/lib/dpkg/arch
+        line: "i386"
+        create: yes
+    - name: Check if TeamViewer is installed
+      command: dpkg-query -W teamviewer
+      register: check_teamviewer
+      failed_when: false
+      changed_when: false
+    - name: Download TeamViewer package
+      get_url:
+        url: https://download.teamviewer.com/download/teamviewer_i386.deb
+        dest: /tmp/teamviewer.deb
+      when: check_teamviewer.rc == 1
+    - name: Install TeamViewer
+      apt:
+        deb: /tmp/teamviewer.deb
+      when: check_teamviewer.rc == 1
+    - name: Remove TeamViewer package
+      file:
+        state: absent
+        path: /tmp/teamviewer.deb
+      when: check_teamviewer.rc == 1
