@@ -26,12 +26,6 @@
     - name: Install Virtualbox
       apt:
         name: virtualbox
-    - name: Add Ansible repository
-      apt_repository:
-        # TODO: Change this after Ansible's PPA will be fixed
-        # repo: ppa:ansible/ansible eoan main
-        repo: deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ansible_distribution_release}} main
-        update_cache: yes
     - name: Install Ansible
       apt:
         name: ansible
