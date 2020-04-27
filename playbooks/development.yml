@@ -9,6 +9,7 @@
     - geerlingguy.composer
     - geerlingguy.ruby
     - geerlingguy.docker
+    - andrewrothstein.terraform
   tasks:
     - name: Update apt package list
       apt:
@@ -23,9 +24,6 @@
     - name: Install Virtualbox
       apt:
         name: virtualbox
-    - name: Install Terraform
-      snap:
-        name: terraform
     - name: Add Ansible repository
       apt_repository:
         # TODO: Change this after Ansible's PPA will be fixed

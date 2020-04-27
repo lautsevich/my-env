@@ -2,3 +2,4 @@
 - src: geerlingguy.composer
 - src: geerlingguy.ruby
 - src: geerlingguy.docker
+- src: andrewrothstein.terraform
