@@ -5,3 +5,4 @@
 - src: andrewrothstein.terraform
 - src: andrewrothstein.curl
 - src: anxs.build-essential
+- src: xussof.software_software_properties_common

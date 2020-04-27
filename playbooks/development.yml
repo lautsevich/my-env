@@ -11,6 +11,7 @@
     - geerlingguy.docker
     - andrewrothstein.terraform
     - anxs.build-essential
+    - xussof.software_software_properties_common
   tasks:
     - name: Update apt package list
       apt:
