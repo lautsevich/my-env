@@ -9,6 +9,7 @@
     - geerlingguy.ruby
     - geerlingguy.docker
     - andrewrothstein.terraform
+    - andrewrothstein.curl
     - anxs.build-essential
     - xussof.software_software_properties_common
   tasks:
