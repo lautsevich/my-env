@@ -7,6 +7,7 @@
   roles:
     - geerlingguy.composer
     - geerlingguy.ruby
+    - geerlingguy.docker
   tasks:
     - name: Update apt package list
       apt:
