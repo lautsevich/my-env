@@ -6,6 +6,7 @@
     ansible_distribution_release: "eoan"
   roles:
     - geerlingguy.composer
+    - geerlingguy.ruby
   tasks:
     - name: Update apt package list
       apt:
@@ -20,13 +21,6 @@
       snap:
         name: code
         classic: yes
-    - name: Install Ruby
-      snap:
-        name: ruby
-        classic: yes
-    - name: Install Bundler
-      gem:
-        name: bundler
     - name: Install Virtualbox
       apt:
         name: virtualbox
