@@ -1,4 +1,5 @@
 - src: geerlingguy.git
+- src: oefenweb.git_lfs
 - src: geerlingguy.composer
 - src: geerlingguy.ruby
 - src: geerlingguy.docker
