@@ -10,6 +10,7 @@
     - geerlingguy.ruby
     - geerlingguy.docker
     - andrewrothstein.terraform
+    - anxs.build-essential
   tasks:
     - name: Update apt package list
       apt:

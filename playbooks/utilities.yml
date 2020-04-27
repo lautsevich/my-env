@@ -22,7 +22,6 @@
         name: ufw
     - name: Enable Uncomplicated Firewall
       command: ufw enable
-        name: build-essential
     - name: Install software-properties-common
       apt:
         name: software-properties-common

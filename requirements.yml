@@ -4,3 +4,4 @@
 - src: geerlingguy.docker
 - src: andrewrothstein.terraform
 - src: andrewrothstein.curl
+- src: anxs.build-essential
