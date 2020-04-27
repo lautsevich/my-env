@@ -2,11 +2,8 @@
   hosts: localhost
   become: true
   tasks:
-    - name: Update apt package list
-      apt:
-        upgrade: "yes"
-        update_cache: yes
+    - name: Enable universe repository
+      command: add-apt-repository multiverse
     - name: Install Snapd
       apt:
         name: snapd
-
