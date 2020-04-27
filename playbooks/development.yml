@@ -1,6 +1,8 @@
 - name: Install development apps
   hosts: localhost
   become: true
+  vars:
+    NODEJS_VERSION: "12"
   tasks:
     - name: Update apt package list
       apt:
@@ -37,3 +39,8 @@
     - name: Install Ansible
       apt:
         name: ansible
+    - name: Install Node.js (--classic)
+      snap:
+        name: node
+        classic: yes
+        channel: "{{ NODEJS_VERSION }}/stable"
