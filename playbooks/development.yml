@@ -5,6 +5,7 @@
     NODEJS_VERSION: "12"
     ansible_distribution_release: "eoan"
   roles:
+    - geerlingguy.git
     - geerlingguy.composer
     - geerlingguy.ruby
     - geerlingguy.docker
@@ -12,9 +13,6 @@
     - name: Update apt package list
       apt:
         update_cache: yes
-    - name: Install Git
-      apt:
-        name: git
     - name: Install GitKraken
       snap:
         name: gitkraken
