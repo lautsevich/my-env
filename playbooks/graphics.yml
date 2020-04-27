@@ -1,13 +1,9 @@
-- name: Install graphics apps
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Install Inkscape
-      snap:
-        name: inkscape
-    - name: Install Figma
-      snap:
-        name: figma-linux
-    - name: Install ksnip
-      snap:
-        name: ksnip
+- name: Install Inkscape
+  snap:
+    name: inkscape
+- name: Install Figma
+  snap:
+    name: figma-linux
+- name: Install ksnip
+  snap:
+    name: ksnip

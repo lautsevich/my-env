@@ -1,0 +1,51 @@
+- name: Provision system with Ansible
+  hosts: localhost
+  become: true
+  vars:
+    NODEJS_VERSION: "12"
+  roles:
+  - geerlingguy.git
+  - oefenweb.git_lfs
+  - geerlingguy.composer
+  - geerlingguy.ruby
+  - geerlingguy.docker
+  - andrewrothstein.terraform
+  - andrewrothstein.curl
+  - anxs.build-essential
+  - xussof.software_software_properties_common
+tasks:
+    - name: Social tasks
+      include_tasks:
+        file: social.yml
+      tags:
+        - social
+    - name: Graphics tasks
+      include_tasks:
+        file: graphics.yml
+      tags:
+        - graphics
+    - name: Entertainment tasks
+      include_tasks:
+        file: entertainment.yml
+      tags:
+        - entertainment
+    - name: Multimedia tasks
+      include_tasks:
+        file: multimedia.yml
+      tags:
+        - multimedia
+    - name: Utilities tasks
+      include_tasks:
+        file: utilities.yml
+      tags:
+        - utilities
+    - name: Work tasks
+      include_tasks:
+        file: work.yml
+      tags:
+        - work
+    - name: Development tasks
+      include_tasks:
+        file: development.yml
+      tags:
+        - development

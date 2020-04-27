@@ -1,56 +1,40 @@
-- name: Install development apps
-  hosts: localhost
-  become: true
+- name: Update apt package list
+  apt:
+    update_cache: yes
+- name: Install GitKraken
+  snap:
+    name: gitkraken
+- name: Install VS Code
+  snap:
+    name: code
+    classic: yes
+- name: Install Virtualbox
+  apt:
+    name: virtualbox
+- name: Install Ansible
+  apt:
+    name: ansible
+- name: Install Node.js (--classic)
+  snap:
+    name: node
+    classic: yes
+    channel: "{{ NODEJS_VERSION }}/stable"
+- name: Install PHP
+  apt:
+    name: "{{ packages }}"
   vars:
-    NODEJS_VERSION: "12"
-  roles:
-    - geerlingguy.git
-    - oefenweb.git_lfs
-    - geerlingguy.composer
-    - geerlingguy.ruby
-    - geerlingguy.docker
-    - andrewrothstein.terraform
-    - andrewrothstein.curl
-    - anxs.build-essential
-    - xussof.software_software_properties_common
-  tasks:
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-    - name: Install GitKraken
-      snap:
-        name: gitkraken
-    - name: Install VS Code
-      snap:
-        name: code
-        classic: yes
-    - name: Install Virtualbox
-      apt:
-        name: virtualbox
-    - name: Install Ansible
-      apt:
-        name: ansible
-    - name: Install Node.js (--classic)
-      snap:
-        name: node
-        classic: yes
-        channel: "{{ NODEJS_VERSION }}/stable"
-    - name: Install PHP
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-        - php
-        - php-common
-        - php-json
-        - php-phpdbg
-        - php-dev
-        - php-xml
-        - php-cli
-        - libapache2-mod-php
-        - php-mysql
-        - php-gd
-        - php-curl
-        - php-mbstring
-        - php-zip
-        - php-pear
+    packages:
+    - php
+    - php-common
+    - php-json
+    - php-phpdbg
+    - php-dev
+    - php-xml
+    - php-cli
+    - libapache2-mod-php
+    - php-mysql
+    - php-gd
+    - php-curl
+    - php-mbstring
+    - php-zip
+    - php-pear

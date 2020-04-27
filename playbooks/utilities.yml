@@ -1,24 +1,20 @@
-- name: Install utilities apps
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-    - name: Install KeePassXC
-      snap:
-        name: keepassxc
-    - name: Install Midnight Commander
-      apt:
-        name: mc
-    - name: Install Krusader
-      apt:
-        name: krusader
-    - name: Install GNOME Tweaks
-      apt:
-        name: gnome-tweaks
-    - name: Install Uncomplicated Firewall
-      snap:
-        name: ufw
-    - name: Enable Uncomplicated Firewall
-      command: ufw enable
+- name: Update apt package list
+  apt:
+    update_cache: yes
+- name: Install KeePassXC
+  snap:
+    name: keepassxc
+- name: Install Midnight Commander
+  apt:
+    name: mc
+- name: Install Krusader
+  apt:
+    name: krusader
+- name: Install GNOME Tweaks
+  apt:
+    name: gnome-tweaks
+- name: Install Uncomplicated Firewall
+  snap:
+    name: ufw
+- name: Enable Uncomplicated Firewall
+  command: ufw enable

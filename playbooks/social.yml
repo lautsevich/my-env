@@ -1,27 +1,23 @@
-- name: Install social apps
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Install Skype (--classic)
-      snap:
-        name: skype
-        classic: yes
-    - name: Install Slack (--classic)
-      snap:
-        name: slack
-        classic: yes
-    - name: Install Telegram
-      snap:
-        name: telegram-desktop
-    - name: Install Discord
-      snap:
-        name: discord
-    - name: Install Viber (unofficial)
-      snap:
-        name: viber-unofficial
-    - name: Install Facebook Messenger (port)
-      snap:
-        name: messengerport
-    - name: Install Zoom
-      snap:
-        name: zoom-client
+- name: Install Skype (--classic)
+  snap:
+    name: skype
+    classic: yes
+- name: Install Slack (--classic)
+  snap:
+    name: slack
+    classic: yes
+- name: Install Telegram
+  snap:
+    name: telegram-desktop
+- name: Install Discord
+  snap:
+    name: discord
+- name: Install Viber (unofficial)
+  snap:
+    name: viber-unofficial
+- name: Install Facebook Messenger (port)
+  snap:
+    name: messengerport
+- name: Install Zoom
+  snap:
+    name: zoom-client

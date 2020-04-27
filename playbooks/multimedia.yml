@@ -1,34 +1,30 @@
-- name: Install multimedia apps
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Install VLC
-      snap:
-        name: vlc
-    - name: Install Ace Stream Player
-      snap:
-        name: acestreamplayer
-    - name: Install SimpleScreenRecorder
-      apt:
-        name: simplescreenrecorder
-    - name: Install Google Play Music Desktop Player
-      snap:
-        name: google-play-music-desktop-player
-    - name: Install OBS Studio
-      snap:
-        name: obs-studio
-    - name: Install Ubuntu Restricted Extras
-      apt:
-        name: ubuntu-restricted-extras
-    - name: Add Google Music Manager repository key
-      apt_key:
-        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-        state: present
-    - name: Add Google Music Manager repository
-      apt_repository:
-        repo: deb http://dl.google.com/linux/musicmanager/deb/ stable main
-        filename: google-musicmanager
-    - name: Install Google Music Manager
-      apt:
-        name: google-musicmanager-beta
-        update_cache: yes
+- name: Install VLC
+  snap:
+    name: vlc
+- name: Install Ace Stream Player
+  snap:
+    name: acestreamplayer
+- name: Install SimpleScreenRecorder
+  apt:
+    name: simplescreenrecorder
+- name: Install Google Play Music Desktop Player
+  snap:
+    name: google-play-music-desktop-player
+- name: Install OBS Studio
+  snap:
+    name: obs-studio
+- name: Install Ubuntu Restricted Extras
+  apt:
+    name: ubuntu-restricted-extras
+- name: Add Google Music Manager repository key
+  apt_key:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    state: present
+- name: Add Google Music Manager repository
+  apt_repository:
+    repo: deb http://dl.google.com/linux/musicmanager/deb/ stable main
+    filename: google-musicmanager
+- name: Install Google Music Manager
+  apt:
+    name: google-musicmanager-beta
+    update_cache: yes

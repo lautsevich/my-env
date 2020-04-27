@@ -1,7 +1,3 @@
-- name: Install entertainment apps
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Install Steam
-      apt:
-        name: steam
+- name: Install Steam
+  apt:
+    name: steam
