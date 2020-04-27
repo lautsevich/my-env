@@ -48,3 +48,6 @@
         state: absent
         path: /tmp/teamviewer.deb
       when: check_teamviewer.rc == 1
+    - name: Install LibreOffice
+      snap:
+        name: libreoffice
