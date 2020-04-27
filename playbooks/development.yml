@@ -4,6 +4,8 @@
   vars:
     NODEJS_VERSION: "12"
     ansible_distribution_release: "eoan"
+  roles:
+    - geerlingguy.composer
   tasks:
     - name: Update apt package list
       apt:
