@@ -3,3 +3,4 @@
 - src: geerlingguy.ruby
 - src: geerlingguy.docker
 - src: andrewrothstein.terraform
+- src: andrewrothstein.curl
