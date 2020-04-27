@@ -5,6 +5,7 @@
     NODEJS_VERSION: "12"
   roles:
     - geerlingguy.git
+    - oefenweb.git_lfs
     - geerlingguy.composer
     - geerlingguy.ruby
     - geerlingguy.docker
