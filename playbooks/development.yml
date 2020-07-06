@@ -38,3 +38,5 @@
     - php-mbstring
     - php-zip
     - php-pear
+
+- name: Remove dependencies that are no longer required
