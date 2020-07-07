@@ -36,6 +36,34 @@
     - php-mbstring
     - php-zip
     - php-pear
+# - name: Add Docker CE key
+#   apt_key:
+#     url: https://download.docker.com/linux/ubuntu/gpg
+# - name: Add Docker CE repository
+#   apt_repository:
+#     repo: deb https://download.docker.com/linux/ubuntu eoan stable
+#     filename: docker-ce
+# - name: Install Docker CE
+#   apt:
+#     name: docker-ce
+#     update_cache: yes
+# - name: Add user to Docker group
+#   user:
+#     # name: '{{ user }}'
+#     name: pavel
+#     groups: docker
+#     append: yes
+# - name: Install docker-compose
+#   apt:
+#     name: docker-compose
+#     update_cache: yes
+# - name: Uninstall Apache 2
+#   apt:
+#     name: apache2
+#     state: absent
+# - name: Remove useless packages from the cache
+#   apt:
+#     autoclean: yes
 
 - name: Remove dependencies that are no longer required
   apt:
