@@ -14,6 +14,11 @@
   - anxs.build-essential
   - xussof.software_software_properties_common
   tasks:
+    - name: Common tasks
+      include_tasks:
+        file: social.yml
+      tags:
+        - common
     - name: Social tasks
       include_tasks:
         file: social.yml
