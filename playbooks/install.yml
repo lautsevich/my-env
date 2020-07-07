@@ -14,6 +14,9 @@
   - anxs.build-essential
   - xussof.software_software_properties_common
   tasks:
+    - name: Update apt package list
+      apt:
+        update_cache: yes
     - name: Common tasks
       include_tasks:
         file: social.yml
