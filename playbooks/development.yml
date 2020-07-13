@@ -17,25 +17,14 @@
     name: ansible
   become: yes
 - name: Uninstall Apache 2
-- name: Install PHP
   apt:
     name: apache2
     state: absent
   become: yes
-    - php
-    - php-common
-    - php-json
-    - php-phpdbg
-    - php-dev
-    - php-xml
-    - php-cli
-    - libapache2-mod-php
-    - php-mysql
-    - php-gd
-    - php-curl
-    - php-mbstring
-    - php-zip
-    - php-pear
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
+  become: yes
 # - name: Add Docker CE key
 #   apt_key:
 #     url: https://download.docker.com/linux/ubuntu/gpg
