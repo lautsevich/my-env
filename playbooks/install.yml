@@ -1,7 +1,7 @@
 - name: Provision system with Ansible
   hosts: localhost
   vars:
-    NODEJS_VERSION: "12"
+    PHP_VERSION: "7.4"
     NODE_VERSION: "12.x"
   roles:
   - geerlingguy.git
