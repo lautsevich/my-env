@@ -27,7 +27,8 @@
         - pavel
   - andrewrothstein.terraform
   - andrewrothstein.curl
-  - anxs.build-essential
+  - role: anxs.build-essential
+    become: yes
   - xussof.software_software_properties_common
   tasks:
     - name: Update apt package list
