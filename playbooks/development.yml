@@ -17,9 +17,6 @@
     name: ansible
   become: yes
 - name: Uninstall Apache 2
-    name: node
-    classic: yes
-    channel: "{{ NODEJS_VERSION }}/stable"
 - name: Install PHP
   apt:
     name: apache2
