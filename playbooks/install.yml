@@ -20,6 +20,11 @@
     become: yes
     vars:
       nodejs_version: "{{ NODE_VERSION }}"
+  - role: geerlingguy.docker
+    become: yes
+    vars:
+      docker_users:
+        - pavel
   - andrewrothstein.terraform
   - andrewrothstein.curl
   - anxs.build-essential
