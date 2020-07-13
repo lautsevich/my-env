@@ -12,6 +12,10 @@
   apt:
     name: virtualbox
   become: yes
+- name: Install sshpass
+  apt:
+    name: sshpass
+  become: yes
 - name: Install Ansible
   apt:
     name: ansible
