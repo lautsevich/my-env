@@ -5,8 +5,8 @@
     NODE_VERSION: "12.x"
   roles:
   - geerlingguy.git
-  - oefenweb.git_lfs
-  - geerlingguy.composer
+  - role: oefenweb.git_lfs
+    become: yes
   - role: geerlingguy.php
     become: yes
     vars:
