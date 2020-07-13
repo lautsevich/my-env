@@ -16,15 +16,15 @@
   apt:
     name: ansible
   become: yes
-  snap:
+- name: Uninstall Apache 2
     name: node
     classic: yes
     channel: "{{ NODEJS_VERSION }}/stable"
 - name: Install PHP
   apt:
-    name: "{{ packages }}"
-  vars:
-    packages:
+    name: apache2
+    state: absent
+  become: yes
     - php
     - php-common
     - php-json
