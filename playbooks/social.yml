@@ -12,6 +12,10 @@
   snap:
     name: telegram-desktop
   become: yes
+- name: Install Gitter
+  snap:
+    name: gitter-desktop
+  become: yes
 - name: Install Discord
   snap:
     name: discord
