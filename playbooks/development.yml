@@ -46,10 +46,6 @@
 #   apt:
 #     name: docker-compose
 #     update_cache: yes
-# - name: Uninstall Apache 2
-#   apt:
-#     name: apache2
-#     state: absent
 # - name: Remove useless packages from the cache
 #   apt:
 #     autoclean: yes
