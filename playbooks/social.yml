@@ -2,22 +2,29 @@
   snap:
     name: skype
     classic: yes
+  become: yes
 - name: Install Slack (--classic)
   snap:
     name: slack
     classic: yes
+  become: yes
 - name: Install Telegram
   snap:
     name: telegram-desktop
+  become: yes
 - name: Install Discord
   snap:
     name: discord
+  become: yes
 - name: Install Viber (unofficial)
   snap:
     name: viber-unofficial
+  become: yes
 - name: Install Facebook Messenger (port)
   snap:
     name: messengerport
+  become: yes
 - name: Install Zoom
   snap:
     name: zoom-client
+  become: yes

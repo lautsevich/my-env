@@ -1,9 +1,12 @@
 - name: Install Inkscape
   snap:
     name: inkscape
+  become: yes
 - name: Install Figma
   snap:
     name: figma-linux
+  become: yes
 - name: Install ksnip
   snap:
     name: ksnip
+  become: yes

@@ -1,3 +1,4 @@
 - name: Install Steam
   apt:
     name: steam
+  become: yes

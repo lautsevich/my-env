@@ -2,17 +2,20 @@
   snap:
     name: gitkraken
     classic: yes
+  become: yes
 - name: Install VS Code
   snap:
     name: code
     classic: yes
+  become: yes
 - name: Install Virtualbox
   apt:
     name: virtualbox
+  become: yes
 - name: Install Ansible
   apt:
     name: ansible
-- name: Install Node.js (--classic)
+  become: yes
   snap:
     name: node
     classic: yes
@@ -68,3 +71,4 @@
 - name: Remove dependencies that are no longer required
   apt:
     autoremove: yes
+  become: yes

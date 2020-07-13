@@ -1,6 +1,5 @@
 - name: Provision system with Ansible
   hosts: localhost
-  become: true
   vars:
     NODEJS_VERSION: "12"
   roles:
@@ -20,6 +19,7 @@
     - name: Update apt package list
       apt:
         update_cache: yes
+      become: yes
     - name: Common tasks
       include_tasks:
         file: social.yml

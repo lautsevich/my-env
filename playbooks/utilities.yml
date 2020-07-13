@@ -1,17 +1,23 @@
 - name: Install KeePassXC
   snap:
     name: keepassxc
+  become: yes
 - name: Install Midnight Commander
   apt:
     name: mc
+  become: yes
 - name: Install Krusader
   apt:
     name: krusader
+  become: yes
 - name: Install GNOME Tweaks
   apt:
     name: gnome-tweaks
+  become: yes
 - name: Install Uncomplicated Firewall
   snap:
     name: ufw
+  become: yes
 - name: Enable Uncomplicated Firewall
   command: ufw enable
+  become: yes
