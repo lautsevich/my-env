@@ -12,6 +12,13 @@
   apt:
     name: virtualbox
   become: yes
+- name: Install Python 3 Pip
+  apt:
+    name: python3-pip
+  become: yes
+- name: Install Pip package Docker
+  pip:
+    name: docker
 - name: Install sshpass
   apt:
     name: sshpass
