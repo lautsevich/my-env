@@ -3,6 +3,7 @@
 - src: geerlingguy.php
 - src: geerlingguy.composer
 - src: geerlingguy.ruby
+- src: geerlingguy.nodejs
 - src: geerlingguy.docker
 - src: andrewrothstein.terraform
 - src: andrewrothstein.curl
