@@ -12,6 +12,8 @@
     vars:
       php_default_version_debian: "{{ PHP_VERSION }}"
       php_packages: [php-common, php-json, php-phpdbg, php-dev, php-xml, php-cli, libapache2-mod-php, php-mysql, php-gd, php-curl, php-mbstring, php-zip, php-pear]
+  - role: geerlingguy.composer
+    become: yes
   - role: geerlingguy.nodejs
     become: yes
     vars:
