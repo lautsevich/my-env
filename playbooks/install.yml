@@ -22,7 +22,7 @@
       become: yes
     - name: Common tasks
       include_tasks:
-        file: social.yml
+        file: common.yml
       tags:
         - common
     - name: Social tasks
