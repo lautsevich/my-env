@@ -8,6 +8,25 @@
     name: code
     classic: yes
   become: yes
+- name: Remove legacy GitHub CLI repository file
+  file:
+    path: /etc/apt/sources.list.d/github-cli.list
+    state: absent
+  become: yes
+- name: Add GitHub CLI repository
+  deb822_repository:
+    name: github-cli
+    uris: https://cli.github.com/packages
+    suites: stable
+    components: main
+    architectures: amd64
+    signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+  become: yes
+- name: Install GitHub CLI
+  apt:
+    name: gh
+    update_cache: yes
+  become: yes
 - name: Install Virtualbox
   apt:
     name: virtualbox
