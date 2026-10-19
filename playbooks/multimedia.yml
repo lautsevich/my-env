@@ -2,6 +2,10 @@
   snap:
     name: vlc
   become: yes
+- name: Install Spotify
+  snap:
+    name: spotify
+  become: yes
 - name: Install Ace Stream Player
   snap:
     name: acestreamplayer
