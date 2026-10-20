@@ -33,7 +33,7 @@
   - role: andrewrothstein.terraform
     tags: [roles, terraform]
   tasks:
-    - name: Disable Apache
+    - name: Set the Apache service state
       service:
         name: apache2
         state: stopped

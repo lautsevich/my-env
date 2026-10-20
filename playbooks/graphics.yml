@@ -8,7 +8,7 @@
     - name: Install Flameshot
       apt:
         name: flameshot
-    - name: Free the Print key from the GNOME screenshot tool
+    - name: Configure the GNOME screenshot tool shortcut
       become: false
       community.general.dconf:
         key: /org/gnome/shell/keybindings/show-screenshot-ui
