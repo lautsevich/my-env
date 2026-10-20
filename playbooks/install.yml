@@ -36,43 +36,35 @@
         update_cache: yes
       become: yes
     - name: Common tasks
-      include_tasks:
-        file: common.yml
+      import_tasks: common.yml
       tags:
         - common
     - name: Social tasks
-      include_tasks:
-        file: social.yml
+      import_tasks: social.yml
       tags:
         - social
     - name: Graphics tasks
-      include_tasks:
-        file: graphics.yml
+      import_tasks: graphics.yml
       tags:
         - graphics
     - name: Entertainment tasks
-      include_tasks:
-        file: entertainment.yml
+      import_tasks: entertainment.yml
       tags:
         - entertainment
     - name: Multimedia tasks
-      include_tasks:
-        file: multimedia.yml
+      import_tasks: multimedia.yml
       tags:
         - multimedia
     - name: Utilities tasks
-      include_tasks:
-        file: utilities.yml
+      import_tasks: utilities.yml
       tags:
         - utilities
     - name: Work tasks
-      include_tasks:
-        file: work.yml
+      import_tasks: work.yml
       tags:
         - work
     - name: Development tasks
-      include_tasks:
-        file: development.yml
+      import_tasks: development.yml
       tags:
         - development
     - name: Remove useless packages from the cache
