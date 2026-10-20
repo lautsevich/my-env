@@ -1,4 +1,4 @@
 - name: Install Steam
-  apt:
+  snap:
     name: steam
   become: yes
