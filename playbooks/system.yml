@@ -5,23 +5,23 @@
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/input-sources/sources
-        value: "[('xkb', 'us'), ('xkb', 'ru'), ('xkb', 'by'), ('xkb', 'by+latin')]"
+        value: "{{ keyboard_input_sources }}"
     - name: Set the layout switching shortcut
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/input-sources/xkb-options
-        value: "['grp:alt_shift_toggle']"
+        value: "{{ keyboard_xkb_options }}"
 - name: Configure battery percentage in the top bar
   become: false
   community.general.dconf:
     key: /org/gnome/desktop/interface/show-battery-percentage
-    value: "true"
+    value: "{{ battery_percentage }}"
   tags: [battery]
 - name: Configure seconds in the top bar clock
   become: false
   community.general.dconf:
     key: /org/gnome/desktop/interface/clock-show-seconds
-    value: "true"
+    value: "{{ clock_show_seconds }}"
   tags: [clock]
 - name: Theme
   tags: [dark-theme]
@@ -30,17 +30,17 @@
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/interface/color-scheme
-        value: "'prefer-dark'"
+        value: "{{ color_scheme }}"
     - name: Set the GTK theme
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/interface/gtk-theme
-        value: "'Yaru-dark'"
+        value: "{{ gtk_theme }}"
     - name: Set the icon theme
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/interface/icon-theme
-        value: "'Yaru-dark'"
+        value: "{{ icon_theme }}"
 - name: Set monitor layout
   become: false
   copy:
@@ -54,19 +54,19 @@
   become: false
   community.general.dconf:
     key: /org/gnome/desktop/sound/allow-volume-above-100-percent
-    value: "true"
+    value: "{{ volume_above_100 }}"
   tags: [volume-boost]
 - name: Set the startup sound
   become: false
   community.general.dconf:
     key: /org/gnome/shell/ubuntu/startup-sound
-    value: "'warty-startup'"
+    value: "{{ startup_sound }}"
   tags: [startup-sound]
 - name: Set automatic suspend on AC power
   become: false
   community.general.dconf:
     key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
-    value: "'nothing'"
+    value: "{{ sleep_inactive_ac_type }}"
   tags: [no-sleep-on-ac]
 - name: Night Light
   tags: [night-light]
@@ -75,33 +75,33 @@
       become: false
       community.general.dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
-        value: "true"
+        value: "{{ night_light_enabled }}"
     - name: Set the Night Light schedule mode
       become: false
       community.general.dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic
-        value: "false"
+        value: "{{ night_light_schedule_automatic }}"
     - name: Set the Night Light start time
       become: false
       community.general.dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-from
-        value: "22.0"
+        value: "{{ night_light_from }}"
     - name: Set the Night Light end time
       become: false
       community.general.dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-to
-        value: "7.0"
+        value: "{{ night_light_to }}"
 - name: Configure workspaces shown in the Tiling Assistant popup
   become: false
   community.general.dconf:
     key: /org/gnome/shell/extensions/tiling-assistant/tiling-popup-all-workspace
-    value: "true"
+    value: "{{ tiling_popup_all_workspaces }}"
   tags: [tiling-popup]
 - name: Pin apps to the dock
   become: false
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
-    value: "['firefox_firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.kde.krusader.desktop', 'bitwarden_bitwarden.desktop', 'code_code.desktop', 'telegram-desktop_telegram-desktop.desktop', 'com.anthropic.Claude.desktop', 'spotify_spotify.desktop']"
+    value: "{{ dock_apps }}"
   tags: [dock]
 - name: Time zone
   tags: [timezone]
@@ -110,17 +110,17 @@
       become: false
       community.general.dconf:
         key: /org/gnome/system/location/enabled
-        value: "true"
+        value: "{{ location_enabled }}"
     - name: Configure automatic time zone
       become: false
       community.general.dconf:
         key: /org/gnome/desktop/datetime/automatic-timezone
-        value: "true"
+        value: "{{ automatic_timezone }}"
 - name: Set the default folder view in Files
   become: false
   community.general.dconf:
     key: /org/gnome/nautilus/preferences/default-folder-viewer
-    value: "'list-view'"
+    value: "{{ files_default_view }}"
   tags: [files-list-view]
 - name: Projects folder
   tags: [projects-folder]
@@ -128,14 +128,14 @@
     - name: Create the projects folder
       become: false
       file:
-        path: "{{ lookup('env', 'HOME') }}/Projects"
+        path: "{{ lookup('env', 'HOME') }}/{{ projects_folder }}"
         state: directory
         mode: "0775"
     - name: Bookmark the projects folder in the Files sidebar
       become: false
       lineinfile:
         path: "{{ lookup('env', 'HOME') }}/.config/gtk-3.0/bookmarks"
-        line: "file://{{ lookup('env', 'HOME') }}/Projects Projects"
+        line: "file://{{ lookup('env', 'HOME') }}/{{ projects_folder }} {{ projects_folder }}"
         insertafter: "/Downloads( |$)"
         create: yes
         mode: "0664"
@@ -146,24 +146,24 @@
       become: false
       community.general.dconf:
         key: /org/gnome/nautilus/list-view/default-visible-columns
-        value: "['name', 'size', 'type', 'date_modified', 'detailed_type']"
+        value: "{{ files_visible_columns }}"
     - name: Set the column order
       become: false
       community.general.dconf:
         key: /org/gnome/nautilus/list-view/default-column-order
-        value: "['name', 'size', 'type', 'owner', 'group', 'permissions', 'date_modified', 'date_accessed', 'date_created', 'recency', 'detailed_type']"
+        value: "{{ files_column_order }}"
 - name: Regional formats
   tags: [region]
   block:
     - name: Generate the regional formats locale
       community.general.locale_gen:
-        name: be_BY.UTF-8
+        name: "{{ region_locale }}"
     - name: Set the regional formats
       become: false
       community.general.dconf:
         key: /org/gnome/system/locale/region
-        value: "'be_BY.UTF-8'"
+        value: "'{{ region_locale }}'"
 - name: Configure Uncomplicated Firewall
   community.general.ufw:
-    state: enabled
+    state: "{{ ufw_state }}"
   tags: [ufw]

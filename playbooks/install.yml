@@ -48,6 +48,9 @@
         - common
     - name: System tasks
       import_tasks: system.yml
+      # Setting values come from the vault: keep them out of the output.
+      no_log: true
+      diff: false
       tags:
         - tasks
         - system
