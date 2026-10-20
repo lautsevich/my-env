@@ -1,8 +1,8 @@
 - name: Provision system with Ansible
   hosts: localhost
   vars:
-    PHP_VERSION: "7.4"
-    NODE_VERSION: "12.x"
+    PHP_VERSION: "8.5"
+    NODE_VERSION: "24.x"
   roles:
   - geerlingguy.git
   - role: oefenweb.git_lfs
