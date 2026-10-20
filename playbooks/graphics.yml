@@ -6,3 +6,22 @@
   apt:
     name: flameshot
   become: yes
+- name: Free the Print key from the GNOME screenshot tool
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/show-screenshot-ui
+    value: "@as []"
+- name: Register Flameshot custom keybinding
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/']"
+- name: Configure Flameshot keybinding
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: name
+      value: "'Flameshot'"
+    - key: command
+      value: "'sh -c -- \"QT_QPA_PLATFORM=wayland flameshot gui\"'"
+    - key: binding
+      value: "'Print'"
