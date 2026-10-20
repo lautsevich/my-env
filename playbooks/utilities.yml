@@ -18,10 +18,7 @@
   apt:
     name: openssh-client
   become: yes
-- name: Install Uncomplicated Firewall
-  snap:
-    name: ufw
-  become: yes
 - name: Enable Uncomplicated Firewall
-  command: ufw enable
+  community.general.ufw:
+    state: enabled
   become: yes
