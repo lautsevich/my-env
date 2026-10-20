@@ -1,0 +1,20 @@
+#!/bin/bash
+# Refuse to commit vault files (VAULT_FILES in the Makefile) that are not encrypted.
+# Enable with: make git-hooks
+
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+failed=false
+for f in $(make -s vault-files); do
+  # Only check files that are part of this commit.
+  git diff --cached --name-only --diff-filter=ACMR -- "$f" | grep -q . || continue
+  if ! git show ":$f" | head -1 | grep -q '^\$ANSIBLE_VAULT'; then
+    echo "pre-commit: $f is not encrypted. Run 'make vault-encrypt' and stage it again." >&2
+    failed=true
+  fi
+done
+
+if $failed; then
+  exit 1
+fi

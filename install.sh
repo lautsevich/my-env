@@ -40,11 +40,13 @@ fi
 
 if ! $DRY_RUN; then
   cd "$REPO_DIR"
+  make git-hooks
   make provision
   exit
 fi
 
 echo "[dry-run] using repo $REPO_DIR"
+echo "[dry-run] make git-hooks"
 if [ ! -d "$REPO_DIR/.git" ]; then
   echo "[dry-run] repo is not cloned yet, skipping the playbook check run"
 elif ! command -v ansible-playbook >/dev/null; then

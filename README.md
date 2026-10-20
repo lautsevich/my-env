@@ -120,6 +120,7 @@ Secret values (Wi-Fi passwords and the like) live in `playbooks/vars/secrets.yml
 |---|---|
 | `make vault-edit` | Opens the decrypted secrets in your editor and re-encrypts them on save |
 | `make vault-encrypt` | Encrypts every vault file that's in plain text (`secrets.yml`, `files/monitors.xml`); already encrypted files are skipped |
+| `make git-hooks` | Enables the pre-commit hook that refuses to commit an unencrypted vault file. `install.sh` runs it for you |
 
 Create it so that only you can read it:
 
@@ -128,6 +129,8 @@ install -m 600 /dev/null .vault-pass && nano .vault-pass
 ```
 
 Keep the password somewhere safe outside the repo (e.g. Bitwarden). Without it, nothing in `secrets.yml` can be recovered. Never commit vault files unencrypted: run `make vault-encrypt` before committing. The first line of each file must be `$ANSIBLE_VAULT;1.1;AES256`. When you add a new encrypted file, add it to `VAULT_FILES` in the `Makefile`.
+
+The pre-commit hook only works where it's enabled (`make git-hooks`), and `git commit --no-verify` skips it. As a second line of defense, turn on **Secret scanning** and **Push protection** in the GitHub repository settings (Settings → Code security). GitHub then rejects pushes that contain strings that look like secrets.
 
 Every task that uses a secret value or copies an encrypted file must have `no_log: true` and `diff: false`. Otherwise Ansible prints the decrypted data in its output, and with `make check` (`--diff`) it prints the whole decrypted file. See the `Set monitor layout` task in `playbooks/system.yml`.
 

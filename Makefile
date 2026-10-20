@@ -1,4 +1,4 @@
-.PHONY: provision check dry-run galaxy-install vault-edit vault-encrypt
+.PHONY: provision check dry-run galaxy-install vault-edit vault-encrypt vault-files git-hooks
 
 TAGS ?= all
 
@@ -36,3 +36,11 @@ vault-encrypt:
 	    ansible-vault encrypt $(VAULT_OPT) "$$f" || exit 1; \
 	  fi; \
 	done
+
+# List of vault files, used by the pre-commit hook.
+vault-files:
+	@echo $(VAULT_FILES)
+
+# Use the hooks from .githooks (refuses commits of unencrypted vault files).
+git-hooks:
+	git config core.hooksPath .githooks
