@@ -120,6 +120,29 @@
     key: /org/gnome/nautilus/preferences/default-folder-viewer
     value: "'list-view'"
   tags: [files-list-view]
+- name: Projects folder
+  tags: [projects-folder]
+  block:
+    - name: Create the Projects folder
+      become: false
+      file:
+        path: "{{ lookup('env', 'HOME') }}/Projects"
+        state: directory
+        mode: "0775"
+    - name: Make sure the GTK bookmarks directory exists
+      become: false
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.config/gtk-3.0"
+        state: directory
+        mode: "0700"
+    - name: Bookmark Projects in the Files sidebar
+      become: false
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.config/gtk-3.0/bookmarks"
+        line: "file://{{ lookup('env', 'HOME') }}/Projects Projects"
+        insertafter: "/Downloads( |$)"
+        create: yes
+        mode: "0664"
 - name: Files list view columns
   tags: [files-columns]
   block:
