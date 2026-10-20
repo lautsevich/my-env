@@ -1,8 +1,14 @@
-provision:
-	@echo "Ansible provision…"
-	make galaxy-install
+.PHONY: provision check galaxy-install
 
-	ansible-playbook playbooks/install.yml --ask-become-pass
+TAGS ?= all
+
+provision: galaxy-install
+	@echo "Ansible provision…"
+	ansible-playbook playbooks/install.yml --ask-become-pass --tags $(TAGS)
+
+check: galaxy-install
+	@echo "Ansible dry run…"
+	ansible-playbook playbooks/install.yml --ask-become-pass --tags $(TAGS) --check --diff
 
 galaxy-install:
 	@echo "Install Ansible roles…"
