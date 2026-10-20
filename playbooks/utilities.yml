@@ -14,10 +14,6 @@
   apt:
     name: gnome-tweaks
   become: yes
-- name: Install OpenSSH Client
-  apt:
-    name: openssh-client
-  become: yes
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled

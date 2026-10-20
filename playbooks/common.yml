@@ -9,7 +9,3 @@
     - multiverse
   when: item not in (ubuntu_sources.content | b64decode | regex_findall('(?m)^Components:.*$') | join(' ')).split()
   become: yes
-- name: Install Snapd
-  apt:
-    name: snapd
-  become: yes

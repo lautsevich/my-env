@@ -1,7 +1,3 @@
-- name: Install Firefox
-  apt:
-    name: firefox
-  become: yes
 - name: Install Chromium
   snap:
     name: chromium

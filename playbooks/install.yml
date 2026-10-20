@@ -37,7 +37,6 @@
   - andrewrothstein.curl
   - role: anxs.build-essential
     become: yes
-  - xussof.software_software_properties_common
   tasks:
     - name: Disable Apache
       service:
