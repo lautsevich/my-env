@@ -35,14 +35,16 @@ On a fresh machine `make check` can fail on tasks that depend on earlier ones (e
 
 ## What gets installed
 
-Galaxy roles run only on a full run (`make provision` without `TAGS`). They're skipped when `TAGS` is set:
+Galaxy roles. All of them carry the `roles` tag (`make provision TAGS=roles`), and each also has its own tag:
 
-- PHP 8.5 + Composer (`geerlingguy.php`, `geerlingguy.composer`). Apache is installed with `mod_php` but kept stopped and disabled
-- Node.js 24.x from NodeSource (`geerlingguy.nodejs`)
-- Docker from Docker's repository; the current user is added to the `docker` group (`geerlingguy.docker`)
-- Terraform (`andrewrothstein.terraform`)
+| Tag | Role | Contents |
+|---|---|---|
+| `php` | `geerlingguy.php`, `geerlingguy.composer` | PHP 8.5 + Composer. Apache is installed with `mod_php` but kept stopped and disabled |
+| `nodejs` | `geerlingguy.nodejs` | Node.js 24.x from NodeSource |
+| `docker` | `geerlingguy.docker` | Docker from Docker's repository; the current user is added to the `docker` group |
+| `terraform` | `andrewrothstein.terraform` | Terraform |
 
-Task groups, selectable with `TAGS`:
+Task groups:
 
 | Tag | File | Contents |
 |---|---|---|
