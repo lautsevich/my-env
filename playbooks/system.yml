@@ -41,6 +41,13 @@
       community.general.dconf:
         key: /org/gnome/desktop/interface/icon-theme
         value: "'Yaru-dark'"
+- name: Set monitor layout
+  become: false
+  copy:
+    src: monitors.xml
+    dest: "{{ lookup('env', 'HOME') }}/.config/monitors.xml"
+    mode: "0664"
+  tags: [monitors]
 - name: Night Light
   tags: [night-light]
   block:

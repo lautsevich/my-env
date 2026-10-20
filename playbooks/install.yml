@@ -1,6 +1,8 @@
 - name: Provision system with Ansible
   hosts: localhost
   become: true
+  vars_files:
+    - vars/secrets.yml
   vars:
     PHP_VERSION: "8.5"
     NODE_VERSION: "24.x"

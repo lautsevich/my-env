@@ -56,7 +56,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | Group tag | File | App tags |
 |---|---|---|
 | `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
-| `system` | `playbooks/system.yml` | `keyboard` (us, ru, by, by+latin layouts; Alt+Shift to switch), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (dark color scheme, Yaru-dark GTK and icon themes), `night-light` (on, 22:00–07:00), `dock` (pinned apps: Firefox, Chrome, Files, Krusader, Bitwarden, VS Code, Telegram, Claude, Spotify), `ufw` (enables the firewall) |
+| `system` | `playbooks/system.yml` | `monitors` (laptop + external monitor layout, encrypted in `playbooks/files/monitors.xml`), `keyboard` (us, ru, by, by+latin layouts; Alt+Shift to switch), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (dark color scheme, Yaru-dark GTK and icon themes), `night-light` (on, 22:00–07:00), `dock` (pinned apps: Firefox, Chrome, Files, Krusader, Bitwarden, VS Code, Telegram, Claude, Spotify), `ufw` (enables the firewall) |
 | `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (bound to <kbd>PrtSc</kbd>) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
@@ -111,6 +111,23 @@ Package from a vendor's apt repository: a block that adds the repository with `d
 ```
 
 Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on install, with a different key path. That conflicts with the source Ansible added (`Conflicting values set for option Signed-By`). Turn their self-registration off in `/etc/default/<package>` before installing. See the Google Chrome block in `playbooks/work.yml` for an example.
+
+## Secrets
+
+Secret values (Wi-Fi passwords and the like) live in `playbooks/vars/secrets.yml`, encrypted with Ansible Vault. Whole files can be encrypted too: `playbooks/files/monitors.xml` is the vault-encrypted monitor layout, and the `copy` task decrypts it on the fly. To change it, run `ansible-vault edit --vault-password-file .vault-pass playbooks/files/monitors.xml`. Every `make provision` and `make check` run needs the vault password: it's read from `.vault-pass` in the project root if that file exists, otherwise you're asked for it. `.vault-pass` is git-ignored: create it by hand on each new machine before provisioning.
+
+| Command | What it does |
+|---|---|
+| `make vault-edit` | Opens the decrypted secrets in your editor and re-encrypts them on save |
+| `make vault-encrypt` | Encrypts every vault file that's in plain text (`secrets.yml`, `files/monitors.xml`); already encrypted files are skipped |
+
+Create it so that only you can read it:
+
+```bash
+install -m 600 /dev/null .vault-pass && nano .vault-pass
+```
+
+Keep the password somewhere safe outside the repo (e.g. Bitwarden). Without it, nothing in `secrets.yml` can be recovered. Never commit vault files unencrypted: run `make vault-encrypt` before committing. The first line of each file must be `$ANSIBLE_VAULT;1.1;AES256`. When you add a new encrypted file, add it to `VAULT_FILES` in the `Makefile`.
 
 ## After provisioning
 
