@@ -3,6 +3,13 @@
   vars:
     PHP_VERSION: "8.5"
     NODE_VERSION: "24.x"
+  pre_tasks:
+    - name: Update apt package list
+      apt:
+        update_cache: yes
+      become: yes
+      tags:
+        - always
   roles:
   - geerlingguy.git
   - role: oefenweb.git_lfs
@@ -40,10 +47,6 @@
       become: yes
       tags:
         - always
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-      become: yes
     - name: Common tasks
       import_tasks: common.yml
       tags:
