@@ -41,6 +41,12 @@
       community.general.dconf:
         key: /org/gnome/desktop/interface/icon-theme
         value: "'Yaru-dark'"
+- name: Pin apps to the dock
+  become: false
+  community.general.dconf:
+    key: /org/gnome/shell/favorite-apps
+    value: "['firefox_firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.kde.krusader.desktop', 'bitwarden_bitwarden.desktop', 'code_code.desktop', 'telegram-desktop_telegram-desktop.desktop', 'com.anthropic.Claude.desktop', 'spotify_spotify.desktop']"
+  tags: [dock]
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
