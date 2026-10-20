@@ -28,6 +28,19 @@
         name: google-chrome-stable
         update_cache: yes
       ignore_errors: "{{ ansible_check_mode }}"
+- name: Set default browser
+  tags: [default-browser]
+  block:
+    - name: Check the default browser
+      become: false
+      command: xdg-settings get default-web-browser
+      register: default_browser
+      changed_when: false
+      check_mode: false
+    - name: Set the default browser
+      become: false
+      command: xdg-settings set default-web-browser google-chrome.desktop
+      when: default_browser.stdout != "google-chrome.desktop"
 - name: Install LibreOffice
   snap:
     name: libreoffice

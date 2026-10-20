@@ -62,7 +62,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
 | `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
 | `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `pandoc` (Markdown converter) |
-| `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `libreoffice` |
+| `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `default-browser` (sets Chrome as the default browser), `libreoffice` |
 | `entertainment` | `playbooks/entertainment.yml` | `steam` |
 
 An app tag covers every task that app needs. For example, `chrome` runs the whole Google Chrome block: it adds the repository and then installs the package.
