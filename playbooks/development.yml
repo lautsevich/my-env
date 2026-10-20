@@ -8,52 +8,54 @@
     name: code
     classic: yes
   tags: [vscode]
-- name: Add GitHub CLI repository
-  deb822_repository:
-    name: github-cli
-    uris: https://cli.github.com/packages
-    suites: stable
-    components: main
-    architectures: amd64
-    signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+- name: GitHub CLI
   tags: [gh]
-- name: Install GitHub CLI
-  apt:
-    name: gh
-    update_cache: yes
-  tags: [gh]
-- name: Add Claude Code repository
-  deb822_repository:
-    name: claude-code
-    uris: https://downloads.claude.ai/claude-code/apt/stable
-    suites: stable
-    components: main
-    signed_by: https://downloads.claude.ai/keys/claude-code.asc
+  block:
+    - name: Add GitHub CLI repository
+      deb822_repository:
+        name: github-cli
+        uris: https://cli.github.com/packages
+        suites: stable
+        components: main
+        architectures: amd64
+        signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    - name: Install GitHub CLI
+      apt:
+        name: gh
+        update_cache: yes
+- name: Claude Code
   tags: [claude-code]
-- name: Install Claude Code
-  apt:
-    name: claude-code
-    update_cache: yes
-  tags: [claude-code]
-- name: Stop Claude Desktop package from managing its own repository
-  copy:
-    dest: /etc/default/claude-desktop
-    content: "CLAUDE_DESKTOP_ADD_REPO=\"false\"\n"
+  block:
+    - name: Add Claude Code repository
+      deb822_repository:
+        name: claude-code
+        uris: https://downloads.claude.ai/claude-code/apt/stable
+        suites: stable
+        components: main
+        signed_by: https://downloads.claude.ai/keys/claude-code.asc
+    - name: Install Claude Code
+      apt:
+        name: claude-code
+        update_cache: yes
+- name: Claude Desktop
   tags: [claude-desktop]
-- name: Add Claude Desktop repository
-  deb822_repository:
-    name: claude-desktop
-    uris: https://downloads.claude.ai/claude-desktop/apt/stable
-    suites: stable
-    components: main
-    architectures: [amd64, arm64]
-    signed_by: https://downloads.claude.ai/claude-desktop/key.asc
-  tags: [claude-desktop]
-- name: Install Claude Desktop
-  apt:
-    name: claude-desktop
-    update_cache: yes
-  tags: [claude-desktop]
+  block:
+    - name: Stop Claude Desktop package from managing its own repository
+      copy:
+        dest: /etc/default/claude-desktop
+        content: "CLAUDE_DESKTOP_ADD_REPO=\"false\"\n"
+    - name: Add Claude Desktop repository
+      deb822_repository:
+        name: claude-desktop
+        uris: https://downloads.claude.ai/claude-desktop/apt/stable
+        suites: stable
+        components: main
+        architectures: [amd64, arm64]
+        signed_by: https://downloads.claude.ai/claude-desktop/key.asc
+    - name: Install Claude Desktop
+      apt:
+        name: claude-desktop
+        update_cache: yes
 - name: Install Python Docker library
   apt:
     name: python3-docker

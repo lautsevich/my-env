@@ -1,15 +1,16 @@
-- name: Read Ubuntu repository sources
-  slurp:
-    src: /etc/apt/sources.list.d/ubuntu.sources
-  register: ubuntu_sources
+- name: Ubuntu repositories
   tags: [repositories]
-- name: Enable universe and multiverse repositories
-  command: add-apt-repository -y {{ item }}
-  loop:
-    - universe
-    - multiverse
-  when: item not in (ubuntu_sources.content | b64decode | regex_findall('(?m)^Components:.*$') | join(' ')).split()
-  tags: [repositories]
+  block:
+    - name: Read Ubuntu repository sources
+      slurp:
+        src: /etc/apt/sources.list.d/ubuntu.sources
+      register: ubuntu_sources
+    - name: Enable universe and multiverse repositories
+      command: add-apt-repository -y {{ item }}
+      loop:
+        - universe
+        - multiverse
+      when: item not in (ubuntu_sources.content | b64decode | regex_findall('(?m)^Components:.*$') | join(' ')).split()
 - name: Install Git LFS
   apt:
     name: git-lfs
@@ -22,13 +23,14 @@
   apt:
     name: build-essential
   tags: [build-essential]
-- name: Check Git LFS system configuration
-  command: git config --system --get filter.lfs.process
-  register: git_lfs_config
-  failed_when: false
-  changed_when: false
+- name: Git LFS
   tags: [git-lfs]
-- name: Enable Git LFS for all users
-  command: git lfs install --system
-  when: git_lfs_config.rc != 0
-  tags: [git-lfs]
+  block:
+    - name: Check Git LFS system configuration
+      command: git config --system --get filter.lfs.process
+      register: git_lfs_config
+      failed_when: false
+      changed_when: false
+    - name: Enable Git LFS for all users
+      command: git lfs install --system
+      when: git_lfs_config.rc != 0

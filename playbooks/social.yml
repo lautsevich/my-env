@@ -15,14 +15,15 @@
   snap:
     name: discord
   tags: [discord]
-- name: Check if Zoom is installed
-  command: dpkg-query -W zoom
-  register: check_zoom
-  failed_when: false
-  changed_when: false
+- name: Zoom
   tags: [zoom]
-- name: Install Zoom
-  apt:
-    deb: https://zoom.us/client/latest/zoom_amd64.deb
-  when: check_zoom.rc != 0
-  tags: [zoom]
+  block:
+    - name: Check if Zoom is installed
+      command: dpkg-query -W zoom
+      register: check_zoom
+      failed_when: false
+      changed_when: false
+    - name: Install Zoom
+      apt:
+        deb: https://zoom.us/client/latest/zoom_amd64.deb
+      when: check_zoom.rc != 0
