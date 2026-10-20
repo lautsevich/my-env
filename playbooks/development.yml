@@ -8,11 +8,6 @@
     name: code
     classic: yes
   become: yes
-- name: Remove legacy GitHub CLI repository file
-  file:
-    path: /etc/apt/sources.list.d/github-cli.list
-    state: absent
-  become: yes
 - name: Add GitHub CLI repository
   deb822_repository:
     name: github-cli
@@ -27,9 +22,37 @@
     name: gh
     update_cache: yes
   become: yes
-- name: Install Virtualbox
+- name: Add Claude Code repository
+  deb822_repository:
+    name: claude-code
+    uris: https://downloads.claude.ai/claude-code/apt/stable
+    suites: stable
+    components: main
+    signed_by: https://downloads.claude.ai/keys/claude-code.asc
+  become: yes
+- name: Install Claude Code
   apt:
-    name: virtualbox
+    name: claude-code
+    update_cache: yes
+  become: yes
+- name: Stop Claude Desktop package from managing its own repository
+  copy:
+    dest: /etc/default/claude-desktop
+    content: "CLAUDE_DESKTOP_ADD_REPO=\"false\"\n"
+  become: yes
+- name: Add Claude Desktop repository
+  deb822_repository:
+    name: claude-desktop
+    uris: https://downloads.claude.ai/claude-desktop/apt/stable
+    suites: stable
+    components: main
+    architectures: [amd64, arm64]
+    signed_by: https://downloads.claude.ai/claude-desktop/key.asc
+  become: yes
+- name: Install Claude Desktop
+  apt:
+    name: claude-desktop
+    update_cache: yes
   become: yes
 - name: Install Python 3 Pip
   apt:
