@@ -60,6 +60,12 @@
     key: /org/gnome/shell/ubuntu/startup-sound
     value: "'warty-startup'"
   tags: [startup-sound]
+- name: Never suspend on inactivity while on AC power
+  become: false
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+    value: "'nothing'"
+  tags: [no-sleep-on-ac]
 - name: Night Light
   tags: [night-light]
   block:
