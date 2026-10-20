@@ -133,6 +133,17 @@
       community.general.dconf:
         key: /org/gnome/nautilus/list-view/default-column-order
         value: "['name', 'size', 'type', 'owner', 'group', 'permissions', 'date_modified', 'date_accessed', 'date_created', 'recency', 'detailed_type']"
+- name: Regional formats
+  tags: [region]
+  block:
+    - name: Generate the be_BY.UTF-8 locale
+      community.general.locale_gen:
+        name: be_BY.UTF-8
+    - name: Use Belarusian formats for dates, numbers and currency
+      become: false
+      community.general.dconf:
+        key: /org/gnome/system/locale/region
+        value: "'be_BY.UTF-8'"
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
