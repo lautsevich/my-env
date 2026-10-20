@@ -18,6 +18,39 @@
   apt:
     name: pandoc
   tags: [pandoc]
+- name: FSearch
+  tags: [fsearch]
+  vars:
+    fsearch_config: "{{ lookup('env', 'HOME') }}/.config/fsearch/fsearch.conf"
+  block:
+    - name: Install FSearch
+      apt:
+        name: fsearch
+    - name: Make sure the FSearch config directory exists
+      become: false
+      file:
+        path: "{{ fsearch_config | dirname }}"
+        state: directory
+        mode: "0700"
+    - name: Configure the FSearch index and its update schedule
+      become: false
+      community.general.ini_file:
+        path: "{{ fsearch_config }}"
+        section: Database
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        no_extra_spaces: true
+        create: true
+        mode: "0600"
+      loop:
+        - { option: location_1, value: "{{ lookup('env', 'HOME') }}" }
+        - { option: location_enabled_1, value: "true" }
+        - { option: location_update_1, value: "true" }
+        - { option: location_one_filesystem_1, value: "false" }
+        - { option: update_database_on_launch, value: "{{ fsearch_update_on_launch }}" }
+        - { option: update_database_every, value: "true" }
+        - { option: update_database_every_hours, value: "{{ fsearch_update_every_hours }}" }
+        - { option: update_database_every_minutes, value: "{{ fsearch_update_every_minutes }}" }
 - name: GPaste
   tags: [gpaste]
   vars:
