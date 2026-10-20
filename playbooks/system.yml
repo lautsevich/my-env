@@ -11,6 +11,12 @@
       community.general.dconf:
         key: /org/gnome/desktop/input-sources/xkb-options
         value: "['grp:alt_shift_toggle']"
+- name: Show battery percentage in the top bar
+  become: false
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/show-battery-percentage
+    value: "true"
+  tags: [battery]
 - name: Show seconds in the top bar clock
   become: false
   community.general.dconf:
