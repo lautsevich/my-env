@@ -89,6 +89,12 @@
       community.general.dconf:
         key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-to
         value: "7.0"
+- name: Show windows from all workspaces in the Tiling Assistant popup
+  become: false
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/tiling-assistant/tiling-popup-all-workspace
+    value: "true"
+  tags: [tiling-popup]
 - name: Pin apps to the dock
   become: false
   community.general.dconf:
