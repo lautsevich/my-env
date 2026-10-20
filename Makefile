@@ -1,4 +1,4 @@
-.PHONY: provision check galaxy-install
+.PHONY: provision check dry-run galaxy-install
 
 TAGS ?= all
 
@@ -9,6 +9,9 @@ provision: galaxy-install
 check: galaxy-install
 	@echo "Ansible dry run…"
 	ansible-playbook playbooks/install.yml --ask-become-pass --tags $(TAGS) --check --diff
+
+dry-run:
+	bash ./install.sh --dry-run
 
 galaxy-install:
 	@echo "Install Ansible roles…"

@@ -36,6 +36,7 @@
         name: apache2
         state: stopped
         enabled: no
+      ignore_errors: "{{ ansible_check_mode }}"
       tags:
         - always
     - name: Common tasks

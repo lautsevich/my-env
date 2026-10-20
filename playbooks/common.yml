@@ -31,6 +31,7 @@
       register: git_lfs_config
       failed_when: false
       changed_when: false
+      check_mode: false
     - name: Enable Git LFS for all users
       command: git lfs install --system
       when: git_lfs_config.rc != 0

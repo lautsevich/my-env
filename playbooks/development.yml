@@ -23,6 +23,7 @@
       apt:
         name: gh
         update_cache: yes
+      ignore_errors: "{{ ansible_check_mode }}"
 - name: Claude Code
   tags: [claude-code]
   block:
@@ -37,6 +38,7 @@
       apt:
         name: claude-code
         update_cache: yes
+      ignore_errors: "{{ ansible_check_mode }}"
 - name: Claude Desktop
   tags: [claude-desktop]
   block:
@@ -56,6 +58,7 @@
       apt:
         name: claude-desktop
         update_cache: yes
+      ignore_errors: "{{ ansible_check_mode }}"
 - name: Install Python Docker library
   apt:
     name: python3-docker

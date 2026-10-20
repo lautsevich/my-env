@@ -31,11 +31,14 @@ Run it from your own graphical session, not over SSH: some tasks write GNOME set
 | `make provision TAGS=tasks` | Runs only the task groups, no roles |
 | `make provision TAGS=social,graphics` | Runs only the selected groups (role and group tags can be mixed) |
 | `make check` | Dry run (`--check --diff`): shows what would change, changes nothing. Accepts `TAGS` too |
+| `make dry-run` | Dry run of everything: prints the commands `install.sh` would run, then runs `make check`. Accepts `TAGS` too. Same as `./install.sh --dry-run` |
 | `make galaxy-install` | Installs the Galaxy roles from `requirements.yml` |
 
 The apt cache update, disabling Apache and the final apt cleanup run on every invocation, whatever `TAGS` you pass.
 
-On a fresh machine `make check` can fail on tasks that depend on earlier ones (e.g. installing a package from a repository that isn't added yet in a dry run). It's meant for checking changes on an already provisioned machine.
+A dry run still asks for the sudo password, because Ansible reads system state as root, and it installs the Galaxy roles into `~/.ansible`. It changes nothing else. On a fresh machine some tasks can't be checked for real: a package from a vendor repository can't be found until that repository is actually added. Those tasks show an error in the output, and the dry run carries on.
+
+To dry-run without cloning: `curl -fsSL https://raw.githubusercontent.com/lautsevich/my-env/master/install.sh | bash -s -- --dry-run`. It prints the bootstrap commands only, since there's no repo to check yet.
 
 ## What gets installed
 
