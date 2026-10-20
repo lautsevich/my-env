@@ -11,6 +11,12 @@
       community.general.dconf:
         key: /org/gnome/desktop/input-sources/xkb-options
         value: "['grp:alt_shift_toggle']"
+- name: Show seconds in the top bar clock
+  become: false
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/clock-show-seconds
+    value: "true"
+  tags: [clock]
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
