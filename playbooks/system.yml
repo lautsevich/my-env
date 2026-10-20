@@ -120,6 +120,19 @@
     key: /org/gnome/nautilus/preferences/default-folder-viewer
     value: "'list-view'"
   tags: [files-list-view]
+- name: Files list view columns
+  tags: [files-columns]
+  block:
+    - name: Show name, size, type, modification date and detailed type columns
+      become: false
+      community.general.dconf:
+        key: /org/gnome/nautilus/list-view/default-visible-columns
+        value: "['name', 'size', 'type', 'date_modified', 'detailed_type']"
+    - name: Set the column order
+      become: false
+      community.general.dconf:
+        key: /org/gnome/nautilus/list-view/default-column-order
+        value: "['name', 'size', 'type', 'owner', 'group', 'permissions', 'date_modified', 'date_accessed', 'date_created', 'recency', 'detailed_type']"
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
