@@ -2,11 +2,7 @@
   snap:
     name: inkscape
   become: yes
-- name: Install Figma
-  snap:
-    name: figma-linux
-  become: yes
-- name: Install ksnip
-  snap:
-    name: ksnip
+- name: Install Flameshot
+  apt:
+    name: flameshot
   become: yes

@@ -62,7 +62,3 @@
   apt:
     name: sshpass
   become: yes
-- name: Remove useless packages from the cache
-  apt:
-    autoclean: yes
-  become: yes
