@@ -41,6 +41,29 @@
       community.general.dconf:
         key: /org/gnome/desktop/interface/icon-theme
         value: "'Yaru-dark'"
+- name: Night Light
+  tags: [night-light]
+  block:
+    - name: Enable Night Light
+      become: false
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+        value: "true"
+    - name: Use a manual Night Light schedule
+      become: false
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic
+        value: "false"
+    - name: Start Night Light at 22:00
+      become: false
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-from
+        value: "22.0"
+    - name: Stop Night Light at 07:00
+      become: false
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-to
+        value: "7.0"
 - name: Pin apps to the dock
   become: false
   community.general.dconf:

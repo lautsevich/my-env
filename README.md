@@ -56,7 +56,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | Group tag | File | App tags |
 |---|---|---|
 | `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
-| `system` | `playbooks/system.yml` | `keyboard` (us, ru, by, by+latin layouts; Alt+Shift to switch), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (dark color scheme, Yaru-dark GTK and icon themes), `dock` (pinned apps: Firefox, Chrome, Files, Krusader, Bitwarden, VS Code, Telegram, Claude, Spotify), `ufw` (enables the firewall) |
+| `system` | `playbooks/system.yml` | `keyboard` (us, ru, by, by+latin layouts; Alt+Shift to switch), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (dark color scheme, Yaru-dark GTK and icon themes), `night-light` (on, 22:00–07:00), `dock` (pinned apps: Firefox, Chrome, Files, Krusader, Bitwarden, VS Code, Telegram, Claude, Spotify), `ufw` (enables the firewall) |
 | `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (bound to <kbd>PrtSc</kbd>) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
