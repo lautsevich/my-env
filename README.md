@@ -150,5 +150,5 @@ Every task that uses a secret value or copies an encrypted file must have `no_lo
 
 - Log out and back in so the `docker` group membership takes effect.
 - The first <kbd>PrtSc</kbd> press makes GNOME ask for screenshot permission. Choose **Allow**, or Flameshot gets blocked.
-- Zoom is installed from the official `.deb` and doesn't update itself. Update it from Zoom or by reinstalling the latest `.deb`. Everything else updates with `apt upgrade` or snap refresh.
+- Zoom is installed from the official `.deb`, pinned to a version and verified by SHA-256 (`zoom_version` and `zoom_sha256` in `playbooks/social.yml`). It doesn't update itself through apt: update it from Zoom. To move the playbook to a newer release, take the version from `curl -sIL https://zoom.us/client/latest/zoom_amd64.deb | grep -i location`, download that `.deb`, and put its version and `sha256sum` into the variables. Everything else updates with `apt upgrade` or snap refresh.
 - A repo cloned over HTTPS can't push over SSH. Once your SSH key is set up, switch the remote: `git remote set-url origin git@github.com:lautsevich/my-env.git`.

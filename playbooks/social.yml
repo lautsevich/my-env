@@ -17,6 +17,10 @@
   tags: [discord]
 - name: Zoom
   tags: [zoom]
+  vars:
+    zoom_version: "7.2.1.5760"
+    zoom_sha256: "e9a522c794622633b24908ac0589a8e4df8a542846b97818e76f6c27e117cbdb"
+    zoom_deb: /tmp/zoom_amd64.deb
   block:
     - name: Check if Zoom is installed
       command: dpkg-query -W zoom
@@ -24,7 +28,19 @@
       failed_when: false
       changed_when: false
       check_mode: false
+    - name: Download Zoom package
+      get_url:
+        url: "https://cdn.zoom.us/prod/{{ zoom_version }}/zoom_amd64.deb"
+        dest: "{{ zoom_deb }}"
+        checksum: "sha256:{{ zoom_sha256 }}"
+        mode: "0644"
+      when: check_zoom.rc != 0
     - name: Install Zoom
       apt:
-        deb: https://zoom.us/client/latest/zoom_amd64.deb
+        deb: "{{ zoom_deb }}"
       when: check_zoom.rc != 0
+      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Remove the downloaded Zoom package
+      file:
+        path: "{{ zoom_deb }}"
+        state: absent
