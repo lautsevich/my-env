@@ -13,6 +13,12 @@
 - name: Install OBS Studio
   snap:
     name: obs-studio
+- name: Accept Microsoft Core Fonts EULA
+  debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/accepted-mscorefonts-eula
+    vtype: boolean
+    value: "true"
 - name: Install Ubuntu Restricted Extras
   apt:
     name: ubuntu-restricted-extras
