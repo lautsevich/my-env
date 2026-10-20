@@ -114,6 +114,12 @@
       community.general.dconf:
         key: /org/gnome/desktop/datetime/automatic-timezone
         value: "true"
+- name: Open folders in list view in Files
+  become: false
+  community.general.dconf:
+    key: /org/gnome/nautilus/preferences/default-folder-viewer
+    value: "'list-view'"
+  tags: [files-list-view]
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
