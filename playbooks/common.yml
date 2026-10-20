@@ -8,14 +8,12 @@
     - universe
     - multiverse
   when: item not in (ubuntu_sources.content | b64decode | regex_findall('(?m)^Components:.*$') | join(' ')).split()
-  become: yes
 - name: Install base tools
   apt:
     name:
       - git-lfs
       - curl
       - build-essential
-  become: yes
 - name: Check Git LFS system configuration
   command: git config --system --get filter.lfs.process
   register: git_lfs_config
@@ -24,4 +22,3 @@
 - name: Enable Git LFS for all users
   command: git lfs install --system
   when: git_lfs_config.rc != 0
-  become: yes
