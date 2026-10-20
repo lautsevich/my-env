@@ -1,0 +1,17 @@
+- name: Keyboard layouts
+  tags: [keyboard]
+  block:
+    - name: Set input sources
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/input-sources/sources
+        value: "[('xkb', 'us'), ('xkb', 'ru'), ('xkb', 'by'), ('xkb', 'by+latin')]"
+    - name: Switch layouts with Alt+Shift
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/input-sources/xkb-options
+        value: "['grp:alt_shift_toggle']"
+- name: Enable Uncomplicated Firewall
+  community.general.ufw:
+    state: enabled
+  tags: [ufw]

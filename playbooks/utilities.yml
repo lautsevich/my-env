@@ -18,7 +18,3 @@
   apt:
     name: pandoc
   tags: [pandoc]
-- name: Enable Uncomplicated Firewall
-  community.general.ufw:
-    state: enabled
-  tags: [ufw]

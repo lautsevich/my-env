@@ -44,6 +44,11 @@
       tags:
         - tasks
         - common
+    - name: System tasks
+      import_tasks: system.yml
+      tags:
+        - tasks
+        - system
     - name: Social tasks
       import_tasks: social.yml
       tags:
