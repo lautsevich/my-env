@@ -1,20 +1,21 @@
 - name: Install Inkscape
   snap:
     name: inkscape
-  become: yes
 - name: Install Flameshot
   apt:
     name: flameshot
-  become: yes
 - name: Free the Print key from the GNOME screenshot tool
+  become: false
   community.general.dconf:
     key: /org/gnome/shell/keybindings/show-screenshot-ui
     value: "@as []"
 - name: Register Flameshot custom keybinding
+  become: false
   community.general.dconf:
     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/']"
 - name: Configure Flameshot keybinding
+  become: false
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/{{ item.key }}"
     value: "{{ item.value }}"

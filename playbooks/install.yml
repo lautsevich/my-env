@@ -1,5 +1,6 @@
 - name: Provision system with Ansible
   hosts: localhost
+  become: true
   vars:
     PHP_VERSION: "8.5"
     NODE_VERSION: "24.x"
@@ -7,27 +8,22 @@
     - name: Update apt package list
       apt:
         update_cache: yes
-      become: yes
       tags:
         - always
   roles:
   - role: geerlingguy.php
-    become: yes
     vars:
       php_default_version_debian: "{{ PHP_VERSION }}"
       php_packages: [php-common, php-json, php-phpdbg, php-dev, php-xml, php-cli, libapache2-mod-php, php-mysql, php-gd, php-curl, php-mbstring, php-zip, php-pear]
       php_enable_webserver: false
   - role: geerlingguy.composer
-    become: yes
   - role: geerlingguy.nodejs
-    become: yes
     vars:
       nodejs_version: "{{ NODE_VERSION }}"
   - role: geerlingguy.docker
-    become: yes
     vars:
       docker_users:
-        - "{{ ansible_user_id }}"
+        - "{{ lookup('env', 'USER') }}"
   - andrewrothstein.terraform
   tasks:
     - name: Disable Apache
@@ -35,7 +31,6 @@
         name: apache2
         state: stopped
         enabled: no
-      become: yes
       tags:
         - always
     - name: Common tasks
@@ -73,8 +68,6 @@
     - name: Remove useless packages from the cache
       apt:
         autoclean: yes
-      become: yes
     - name: Remove dependencies that are no longer required
       apt:
         autoremove: yes
-      become: yes

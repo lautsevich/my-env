@@ -1,24 +1,18 @@
 - name: Install VLC
   snap:
     name: vlc
-  become: yes
 - name: Install Spotify
   snap:
     name: spotify
-  become: yes
 - name: Install Ace Stream Player
   snap:
     name: acestreamplayer
-  become: yes
 - name: Install SimpleScreenRecorder
   apt:
     name: simplescreenrecorder
-  become: yes
 - name: Install OBS Studio
   snap:
     name: obs-studio
-  become: yes
 - name: Install Ubuntu Restricted Extras
   apt:
     name: ubuntu-restricted-extras
-  become: yes
