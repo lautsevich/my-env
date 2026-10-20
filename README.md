@@ -103,12 +103,24 @@ Package from a vendor's apt repository: a block that adds the repository with `d
         uris: https://example.com/apt
         suites: stable
         components: main
-        signed_by: https://example.com/key.asc
+        signed_by: "{{ lookup('file', 'keys/example.asc') }}"
     - name: Install Example
       apt:
         name: example
         update_cache: yes
 ```
+
+Repository signing keys are stored in `playbooks/files/keys/` instead of being downloaded on every run. That way a swapped key shows up in a diff. Before adding or updating a key, check its fingerprint against the one the vendor publishes:
+
+```bash
+gpg --show-keys playbooks/files/keys/example.asc
+```
+
+| Key file | Used by | Fingerprint |
+|---|---|---|
+| `github-cli.asc` | GitHub CLI | `2C61 0620 1985 B60E 6C7A C873 23F3 D4EA 7571 6059`, `7F38 BBB5 9D06 4DBC B3D8 4D72 5612 B364 6231 3325` |
+| `anthropic.asc` | Claude Code, Claude Desktop | `31DD DE24 DDFA B679 F42D 7BD2 BAA9 29FF 1A7E CACE` |
+| `google.asc` | Google Chrome | `EB4C 1BFD 4F04 2F6D DDCC EC91 7721 F63B D38B 4796` |
 
 Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on install, with a different key path. That conflicts with the source Ansible added (`Conflicting values set for option Signed-By`). Turn their self-registration off in `/etc/default/<package>` before installing. See the Google Chrome block in `playbooks/work.yml` for an example.
 

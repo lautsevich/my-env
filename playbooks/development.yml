@@ -18,7 +18,7 @@
         suites: stable
         components: main
         architectures: amd64
-        signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+        signed_by: "{{ lookup('file', 'keys/github-cli.asc') }}"
     - name: Install GitHub CLI
       apt:
         name: gh
@@ -33,7 +33,7 @@
         uris: https://downloads.claude.ai/claude-code/apt/stable
         suites: stable
         components: main
-        signed_by: https://downloads.claude.ai/keys/claude-code.asc
+        signed_by: "{{ lookup('file', 'keys/anthropic.asc') }}"
     - name: Install Claude Code
       apt:
         name: claude-code
@@ -53,7 +53,7 @@
         suites: stable
         components: main
         architectures: [amd64, arm64]
-        signed_by: https://downloads.claude.ai/claude-desktop/key.asc
+        signed_by: "{{ lookup('file', 'keys/anthropic.asc') }}"
     - name: Install Claude Desktop
       apt:
         name: claude-desktop

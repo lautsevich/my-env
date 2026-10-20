@@ -22,7 +22,7 @@
         suites: stable
         components: main
         architectures: amd64
-        signed_by: https://dl.google.com/linux/linux_signing_key.pub
+        signed_by: "{{ lookup('file', 'keys/google.asc') }}"
     - name: Install Google Chrome
       apt:
         name: google-chrome-stable
