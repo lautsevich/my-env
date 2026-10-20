@@ -54,13 +54,10 @@
     name: claude-desktop
     update_cache: yes
   become: yes
-- name: Install Python 3 Pip
+- name: Install Python Docker library
   apt:
-    name: python3-pip
+    name: python3-docker
   become: yes
-- name: Install Pip package Docker
-  pip:
-    name: docker
 - name: Install sshpass
   apt:
     name: sshpass
