@@ -39,8 +39,8 @@
       check_mode: false
     - name: Set the default browser
       become: false
-      command: xdg-settings set default-web-browser google-chrome.desktop
-      when: default_browser.stdout != "google-chrome.desktop"
+      command: xdg-settings set default-web-browser {{ default_browser_desktop }}
+      when: default_browser.stdout != default_browser_desktop
 - name: Install LibreOffice
   snap:
     name: libreoffice

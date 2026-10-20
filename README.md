@@ -74,11 +74,11 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
 | `system` | `playbooks/system.yml` | `monitors` (monitor layout), `keyboard` (layouts and switching shortcut), `volume-boost` (volume above 100%), `startup-sound` (startup sound), `no-sleep-on-ac` (automatic suspend on AC power), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (color scheme, GTK and icon themes), `night-light` (Night Light and its schedule), `tiling-popup` (Tiling Assistant popup workspaces), `timezone` (location services, automatic time zone), `projects-folder` (projects folder and its Files sidebar bookmark), `files-list-view` (default folder view in Files), `files-columns` (Files list view columns), `region` (regional formats for dates, numbers and currency), `dock` (pinned apps), `ufw` (firewall). All values come from `playbooks/vars/secrets.yml` |
 | `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
-| `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (bound to <kbd>PrtSc</kbd>) |
+| `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (with a keyboard shortcut, value in `secrets.yml`) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
 | `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
 | `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `pandoc` (Markdown converter) |
-| `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `default-browser` (sets Chrome as the default browser), `libreoffice` |
+| `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `default-browser` (default browser, value in `secrets.yml`), `libreoffice` |
 | `entertainment` | `playbooks/entertainment.yml` | `steam` |
 
 An app tag covers every task that app needs. For example, `chrome` runs the whole Google Chrome block: it adds the repository and then installs the package.
@@ -142,7 +142,7 @@ Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on
 
 ## Secrets
 
-Secret values live in `playbooks/vars/secrets.yml`, encrypted with Ansible Vault: all the setting values used by `playbooks/system.yml` (layouts, theme, Night Light hours, dock apps, regional formats and so on), and later Wi-Fi passwords and the like. The `system` group is imported with `no_log: true` and `diff: false`, so its values never show up in the output. Whole files can be encrypted too: `playbooks/files/monitors.xml` is the vault-encrypted monitor layout, and the `copy` task decrypts it on the fly. To change it, run `ansible-vault edit --vault-password-file .vault-pass playbooks/files/monitors.xml`. Every `make provision` and `make check` run needs the vault password: it's read from `.vault-pass` in the project root if that file exists, otherwise you're asked for it. `.vault-pass` is git-ignored: create it by hand on each new machine before provisioning.
+Secret values live in `playbooks/vars/secrets.yml`, encrypted with Ansible Vault: all the setting values used by `playbooks/system.yml` (layouts, theme, Night Light hours, dock apps, regional formats and so on), the default browser (`work.yml`) and the Flameshot shortcuts (`graphics.yml`), and later Wi-Fi passwords and the like. Whole files can be encrypted too: `playbooks/files/monitors.xml` is the vault-encrypted monitor layout, and the `copy` task decrypts it on the fly. To change it, run `ansible-vault edit --vault-password-file .vault-pass playbooks/files/monitors.xml`. Every `make provision` and `make check` run needs the vault password: it's read from `.vault-pass` in the project root if that file exists, otherwise you're asked for it. `.vault-pass` is git-ignored: create it by hand on each new machine before provisioning.
 
 | Command | What it does |
 |---|---|
@@ -160,11 +160,11 @@ Keep the password somewhere safe outside the repo (e.g. Bitwarden). Without it, 
 
 The pre-commit hook only works where it's enabled (`make git-hooks`), and `git commit --no-verify` skips it. As a second line of defense, turn on **Secret scanning** and **Push protection** in the GitHub repository settings (Settings → Code security). GitHub then rejects pushes that contain strings that look like secrets.
 
-Every task that uses a secret value or copies an encrypted file must have `no_log: true` and `diff: false`. Otherwise Ansible prints the decrypted data in its output, and with `make check` (`--diff`) it prints the whole decrypted file. See the `Set monitor layout` task in `playbooks/system.yml`.
+Tasks that use secrets print the decrypted values to the console, and `make check` (`--diff`) prints whole decrypted files. That's intended: the output stays on the local machine, and only the repository has to stay free of plain-text values. Don't paste that output anywhere public.
 
 ## After provisioning
 
 - Log out and back in so the `docker` group membership takes effect.
-- The first <kbd>PrtSc</kbd> press makes GNOME ask for screenshot permission. Choose **Allow**, or Flameshot gets blocked.
+- The first press of the Flameshot shortcut makes GNOME ask for screenshot permission. Choose **Allow**, or Flameshot gets blocked.
 - Zoom is installed from the official `.deb`, pinned to a version and verified by SHA-256 (`zoom_version` and `zoom_sha256` in `playbooks/social.yml`). It doesn't update itself through apt: update it from Zoom. To move the playbook to a newer release, take the version from `curl -sIL https://zoom.us/client/latest/zoom_amd64.deb | grep -i location`, download that `.deb`, and put its version and `sha256sum` into the variables. Everything else updates with `apt upgrade` or snap refresh.
 - A repo cloned over HTTPS can't push over SSH. Once your SSH key is set up, switch the remote: `git remote set-url origin git@github.com:lautsevich/my-env.git`.
