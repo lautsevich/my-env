@@ -2,21 +2,27 @@
   snap:
     name: slack
     classic: yes
+  tags: [slack]
 - name: Install Telegram
   snap:
     name: telegram-desktop
+  tags: [telegram]
 - name: Install Viber
   snap:
     name: viber
+  tags: [viber]
 - name: Install Discord
   snap:
     name: discord
+  tags: [discord]
 - name: Check if Zoom is installed
   command: dpkg-query -W zoom
   register: check_zoom
   failed_when: false
   changed_when: false
+  tags: [zoom]
 - name: Install Zoom
   apt:
     deb: https://zoom.us/client/latest/zoom_amd64.deb
   when: check_zoom.rc != 0
+  tags: [zoom]

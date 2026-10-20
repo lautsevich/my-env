@@ -2,23 +2,33 @@
   slurp:
     src: /etc/apt/sources.list.d/ubuntu.sources
   register: ubuntu_sources
+  tags: [repositories]
 - name: Enable universe and multiverse repositories
   command: add-apt-repository -y {{ item }}
   loop:
     - universe
     - multiverse
   when: item not in (ubuntu_sources.content | b64decode | regex_findall('(?m)^Components:.*$') | join(' ')).split()
-- name: Install base tools
+  tags: [repositories]
+- name: Install Git LFS
   apt:
-    name:
-      - git-lfs
-      - curl
-      - build-essential
+    name: git-lfs
+  tags: [git-lfs]
+- name: Install curl
+  apt:
+    name: curl
+  tags: [curl]
+- name: Install build-essential
+  apt:
+    name: build-essential
+  tags: [build-essential]
 - name: Check Git LFS system configuration
   command: git config --system --get filter.lfs.process
   register: git_lfs_config
   failed_when: false
   changed_when: false
+  tags: [git-lfs]
 - name: Enable Git LFS for all users
   command: git lfs install --system
   when: git_lfs_config.rc != 0
+  tags: [git-lfs]

@@ -2,10 +2,12 @@
   snap:
     name: gitkraken
     classic: yes
+  tags: [gitkraken]
 - name: Install VS Code
   snap:
     name: code
     classic: yes
+  tags: [vscode]
 - name: Add GitHub CLI repository
   deb822_repository:
     name: github-cli
@@ -14,10 +16,12 @@
     components: main
     architectures: amd64
     signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+  tags: [gh]
 - name: Install GitHub CLI
   apt:
     name: gh
     update_cache: yes
+  tags: [gh]
 - name: Add Claude Code repository
   deb822_repository:
     name: claude-code
@@ -25,14 +29,17 @@
     suites: stable
     components: main
     signed_by: https://downloads.claude.ai/keys/claude-code.asc
+  tags: [claude-code]
 - name: Install Claude Code
   apt:
     name: claude-code
     update_cache: yes
+  tags: [claude-code]
 - name: Stop Claude Desktop package from managing its own repository
   copy:
     dest: /etc/default/claude-desktop
     content: "CLAUDE_DESKTOP_ADD_REPO=\"false\"\n"
+  tags: [claude-desktop]
 - name: Add Claude Desktop repository
   deb822_repository:
     name: claude-desktop
@@ -41,13 +48,17 @@
     components: main
     architectures: [amd64, arm64]
     signed_by: https://downloads.claude.ai/claude-desktop/key.asc
+  tags: [claude-desktop]
 - name: Install Claude Desktop
   apt:
     name: claude-desktop
     update_cache: yes
+  tags: [claude-desktop]
 - name: Install Python Docker library
   apt:
     name: python3-docker
+  tags: [python-docker]
 - name: Install sshpass
   apt:
     name: sshpass
+  tags: [sshpass]

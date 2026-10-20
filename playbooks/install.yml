@@ -12,19 +12,24 @@
         - always
   roles:
   - role: geerlingguy.php
+    tags: [roles, php]
     vars:
       php_default_version_debian: "{{ PHP_VERSION }}"
       php_packages: [php-common, php-json, php-phpdbg, php-dev, php-xml, php-cli, libapache2-mod-php, php-mysql, php-gd, php-curl, php-mbstring, php-zip, php-pear]
       php_enable_webserver: false
   - role: geerlingguy.composer
+    tags: [roles, php]
   - role: geerlingguy.nodejs
+    tags: [roles, nodejs]
     vars:
       nodejs_version: "{{ NODE_VERSION }}"
   - role: geerlingguy.docker
+    tags: [roles, docker]
     vars:
       docker_users:
         - "{{ lookup('env', 'USER') }}"
-  - andrewrothstein.terraform
+  - role: andrewrothstein.terraform
+    tags: [roles, terraform]
   tasks:
     - name: Disable Apache
       service:
@@ -36,38 +41,50 @@
     - name: Common tasks
       import_tasks: common.yml
       tags:
+        - tasks
         - common
     - name: Social tasks
       import_tasks: social.yml
       tags:
+        - tasks
         - social
     - name: Graphics tasks
       import_tasks: graphics.yml
       tags:
+        - tasks
         - graphics
     - name: Entertainment tasks
       import_tasks: entertainment.yml
       tags:
+        - tasks
         - entertainment
     - name: Multimedia tasks
       import_tasks: multimedia.yml
       tags:
+        - tasks
         - multimedia
     - name: Utilities tasks
       import_tasks: utilities.yml
       tags:
+        - tasks
         - utilities
     - name: Work tasks
       import_tasks: work.yml
       tags:
+        - tasks
         - work
     - name: Development tasks
       import_tasks: development.yml
       tags:
+        - tasks
         - development
     - name: Remove useless packages from the cache
       apt:
         autoclean: yes
+      tags:
+        - always
     - name: Remove dependencies that are no longer required
       apt:
         autoremove: yes
+      tags:
+        - always

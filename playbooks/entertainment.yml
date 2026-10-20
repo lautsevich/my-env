@@ -1,3 +1,4 @@
 - name: Install Steam
   snap:
     name: steam
+  tags: [steam]

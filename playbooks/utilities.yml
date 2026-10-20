@@ -1,15 +1,20 @@
 - name: Install Bitwarden
   snap:
     name: bitwarden
+  tags: [bitwarden]
 - name: Install Midnight Commander
   apt:
     name: mc
+  tags: [mc]
 - name: Install Krusader
   apt:
     name: krusader
+  tags: [krusader]
 - name: Install GNOME Tweaks
   apt:
     name: gnome-tweaks
+  tags: [gnome-tweaks]
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
+  tags: [ufw]

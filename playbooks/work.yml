@@ -1,15 +1,18 @@
 - name: Install Chromium
   snap:
     name: chromium
+  tags: [chromium]
 - name: Install Opera
   snap:
     name: opera
+  tags: [opera]
 - name: Stop Google Chrome package from managing its own repository
   copy:
     dest: /etc/default/google-chrome
     content: |
       repo_add_once="false"
       repo_reenable_on_distupgrade="false"
+  tags: [chrome]
 - name: Add Google Chrome repository
   deb822_repository:
     name: google-chrome
@@ -18,10 +21,13 @@
     components: main
     architectures: amd64
     signed_by: https://dl.google.com/linux/linux_signing_key.pub
+  tags: [chrome]
 - name: Install Google Chrome
   apt:
     name: google-chrome-stable
     update_cache: yes
+  tags: [chrome]
 - name: Install LibreOffice
   snap:
     name: libreoffice
+  tags: [libreoffice]

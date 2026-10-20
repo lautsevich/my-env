@@ -1,24 +1,31 @@
 - name: Install VLC
   snap:
     name: vlc
+  tags: [vlc]
 - name: Install Spotify
   snap:
     name: spotify
+  tags: [spotify]
 - name: Install Ace Stream Player
   snap:
     name: acestreamplayer
+  tags: [acestream]
 - name: Install SimpleScreenRecorder
   apt:
     name: simplescreenrecorder
+  tags: [simplescreenrecorder]
 - name: Install OBS Studio
   snap:
     name: obs-studio
+  tags: [obs]
 - name: Accept Microsoft Core Fonts EULA
   debconf:
     name: ttf-mscorefonts-installer
     question: msttcorefonts/accepted-mscorefonts-eula
     vtype: boolean
     value: "true"
+  tags: [restricted-extras]
 - name: Install Ubuntu Restricted Extras
   apt:
     name: ubuntu-restricted-extras
+  tags: [restricted-extras]

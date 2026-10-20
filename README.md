@@ -27,9 +27,13 @@ Run it from your own graphical session, not over SSH: some tasks write GNOME set
 | Command | What it does |
 |---|---|
 | `make provision` | Installs Galaxy roles and runs the whole playbook |
-| `make provision TAGS=social,graphics` | Runs only the selected groups |
+| `make provision TAGS=roles` | Runs only the Galaxy roles |
+| `make provision TAGS=tasks` | Runs only the task groups, no roles |
+| `make provision TAGS=social,graphics` | Runs only the selected groups (role and group tags can be mixed) |
 | `make check` | Dry run (`--check --diff`): shows what would change, changes nothing. Accepts `TAGS` too |
 | `make galaxy-install` | Installs the Galaxy roles from `requirements.yml` |
+
+The apt cache update, disabling Apache and the final apt cleanup run on every invocation, whatever `TAGS` you pass.
 
 On a fresh machine `make check` can fail on tasks that depend on earlier ones (e.g. installing a package from a repository that isn't added yet in a dry run). It's meant for checking changes on an already provisioned machine.
 
@@ -44,22 +48,24 @@ Galaxy roles. All of them carry the `roles` tag (`make provision TAGS=roles`), a
 | `docker` | `geerlingguy.docker` | Docker from Docker's repository; the current user is added to the `docker` group |
 | `terraform` | `andrewrothstein.terraform` | Terraform |
 
-Task groups:
+Task groups. All of them carry the `tasks` tag, each has its own group tag, and every app has its own tag too (`make provision TAGS=zoom`):
 
-| Tag | File | Contents |
+| Group tag | File | App tags |
 |---|---|---|
-| `common` | `playbooks/common.yml` | universe/multiverse check, `git-lfs`, `curl`, `build-essential` |
-| `development` | `playbooks/development.yml` | GitKraken, VS Code, GitHub CLI, Claude Code, Claude Desktop, `python3-docker`, `sshpass` |
-| `graphics` | `playbooks/graphics.yml` | Inkscape, Flameshot (bound to <kbd>PrtSc</kbd>) |
-| `multimedia` | `playbooks/multimedia.yml` | VLC, Spotify, Ace Stream Player, SimpleScreenRecorder, OBS Studio, Ubuntu Restricted Extras |
-| `social` | `playbooks/social.yml` | Slack, Telegram, Viber, Discord, Zoom |
-| `utilities` | `playbooks/utilities.yml` | Bitwarden, Midnight Commander, Krusader, GNOME Tweaks, UFW enabled |
-| `work` | `playbooks/work.yml` | Chromium, Opera, Google Chrome, LibreOffice |
-| `entertainment` | `playbooks/entertainment.yml` | Steam |
+| `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
+| `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
+| `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (bound to <kbd>PrtSc</kbd>) |
+| `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
+| `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
+| `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `ufw` (enables the firewall) |
+| `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `libreoffice` |
+| `entertainment` | `playbooks/entertainment.yml` | `steam` |
+
+An app tag covers every task that app needs. For example, `chrome` adds the repository and then installs the package.
 
 ## Adding an app
 
-Each package gets its own task block in the matching `playbooks/<group>.yml`. Privilege escalation (`become`) is set once for the whole play, so tasks don't repeat it.
+Each package gets its own task block in the matching `playbooks/<group>.yml`, tagged with the app's name (`tags: [example]`). Put the same tag on every task the app needs (repository, install, configuration). Privilege escalation (`become`) is set once for the whole play, so tasks don't repeat it.
 
 Don't add packages that ship with Ubuntu Desktop (Firefox, `snapd`, `openssh-client`, `ufw`, …) or that `install.sh` already installs (`git`, `ansible`, `make`). Only configure them.
 
@@ -69,6 +75,7 @@ Snap:
 - name: Install Example
   snap:
     name: example
+  tags: [example]
 ```
 
 Package from the Ubuntu archive:
@@ -77,6 +84,7 @@ Package from the Ubuntu archive:
 - name: Install Example
   apt:
     name: example
+  tags: [example]
 ```
 
 Package from a vendor's apt repository: add the repository with `deb822_repository`, then install:
@@ -89,10 +97,12 @@ Package from a vendor's apt repository: add the repository with `deb822_reposito
     suites: stable
     components: main
     signed_by: https://example.com/key.asc
+  tags: [example]
 - name: Install Example
   apt:
     name: example
     update_cache: yes
+  tags: [example]
 ```
 
 Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on install, with a different key path. That conflicts with the source Ansible added (`Conflicting values set for option Signed-By`). Turn their self-registration off in `/etc/default/<package>` before installing. See the Chrome tasks in `playbooks/work.yml` for an example.
