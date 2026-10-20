@@ -4,13 +4,20 @@ Ansible playbooks that turn a fresh **Ubuntu Desktop 26.04** install (default or
 
 ## Quick start
 
-On a clean machine, without cloning anything:
+On a clean machine, download the installer from a release tag, read it, then run it:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/lautsevich/my-env/master/install.sh | bash
+TAG=v2026.10.20   # the latest release tag, see Releases below
+curl -fsSLo install.sh "https://raw.githubusercontent.com/lautsevich/my-env/$TAG/install.sh"
+less install.sh
+REF=$TAG bash install.sh
 ```
 
-Or from a clone:
+`install.sh` upgrades the system and installs `git`, `ansible` and `make`, then clones the repo at `REF` to `~/Projects/my-env`, enables the git hooks and runs `make provision`. You'll be asked for your sudo password once. Without `REF` it clones `master`. A clone made from a tag is on a detached HEAD; run `git switch master` before committing from it.
+
+Using a tag, not `master`, means a new machine only gets a state you've checked: later pushes to `master`, including bad or malicious ones, don't reach it. The whole script runs from a `main` function called on its last line, so if the download is cut short, nothing runs.
+
+From an existing clone, the installer uses that clone as it is:
 
 ```bash
 git clone https://github.com/lautsevich/my-env.git ~/Projects/my-env
@@ -18,9 +25,18 @@ cd ~/Projects/my-env
 ./install.sh
 ```
 
-`install.sh` upgrades the system and installs `git`, `ansible` and `make`, clones the repo to `~/Projects/my-env` if needed, then runs `make provision`. You'll be asked for your sudo password once.
-
 Run it from your own graphical session, not over SSH: some tasks write GNOME settings to the current user's profile.
+
+## Releases
+
+After checking a set of changes (for example with `make check`), tag that commit and push the tag:
+
+```bash
+git tag v2026.10.20
+git push origin v2026.10.20
+```
+
+Use that tag in the Quick start commands. Tags are named `vYYYY.MM.DD`; add a suffix (`v2026.10.20.1`) for a second release on the same day.
 
 ## Make targets
 
@@ -38,7 +54,7 @@ The apt cache update, disabling Apache and the final apt cleanup run on every in
 
 A dry run still asks for the sudo password, because Ansible reads system state as root, and it installs the Galaxy roles into `~/.ansible`. It changes nothing else. On a fresh machine some tasks can't be checked for real: a package from a vendor repository can't be found until that repository is actually added. Those tasks show an error in the output, and the dry run carries on.
 
-To dry-run without cloning: `curl -fsSL https://raw.githubusercontent.com/lautsevich/my-env/master/install.sh | bash -s -- --dry-run`. It prints the bootstrap commands only, since there's no repo to check yet.
+To dry-run without cloning, run the downloaded installer with `--dry-run`: `REF=$TAG bash install.sh --dry-run`. It prints the bootstrap commands only, since there's no repo to check yet.
 
 ## What gets installed
 
