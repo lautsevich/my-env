@@ -7,6 +7,10 @@
   snap:
     name: telegram-desktop
   become: yes
+- name: Install Viber
+  snap:
+    name: viber
+  become: yes
 - name: Install Discord
   snap:
     name: discord
