@@ -161,6 +161,19 @@
       community.general.dconf:
         key: /org/gnome/system/locale/region
         value: "'{{ region_locale }}'"
+- name: Add Wi-Fi connections
+  community.general.nmcli:
+    conn_name: "{{ item.ssid }}"
+    type: wifi
+    ssid: "{{ item.ssid }}"
+    wifi_sec:
+      key-mgmt: wpa-psk
+      psk: "{{ item.password }}"
+    autoconnect: true
+    state: present
+  loop: "{{ wifi_networks }}"
+  no_log: true
+  tags: [wifi]
 - name: Configure Uncomplicated Firewall
   community.general.ufw:
     state: "{{ ufw_state }}"

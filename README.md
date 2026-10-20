@@ -72,7 +72,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | Group tag | File | App tags |
 |---|---|---|
 | `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
-| `system` | `playbooks/system.yml` | `monitors` (monitor layout), `keyboard` (layouts and switching shortcut), `volume-boost` (volume above 100%), `startup-sound` (startup sound), `no-sleep-on-ac` (automatic suspend on AC power), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (color scheme, GTK and icon themes), `night-light` (Night Light and its schedule), `tiling-popup` (Tiling Assistant popup workspaces), `timezone` (location services, automatic time zone), `projects-folder` (projects folder and its Files sidebar bookmark), `files-list-view` (default folder view in Files), `files-columns` (Files list view columns), `region` (regional formats for dates, numbers and currency), `dock` (pinned apps), `ufw` (firewall). All values come from `playbooks/vars/secrets.yml` |
+| `system` | `playbooks/system.yml` | `monitors` (monitor layout), `keyboard` (layouts and switching shortcut), `volume-boost` (volume above 100%), `startup-sound` (startup sound), `no-sleep-on-ac` (automatic suspend on AC power), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (color scheme, GTK and icon themes), `night-light` (Night Light and its schedule), `tiling-popup` (Tiling Assistant popup workspaces), `timezone` (location services, automatic time zone), `projects-folder` (projects folder and its Files sidebar bookmark), `files-list-view` (default folder view in Files), `files-columns` (Files list view columns), `region` (regional formats for dates, numbers and currency), `dock` (pinned apps), `wifi` (Wi-Fi networks from `wifi_networks`), `ufw` (firewall). All values come from `playbooks/vars/secrets.yml` |
 | `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (with a keyboard shortcut, value in `secrets.yml`) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
@@ -142,7 +142,7 @@ Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on
 
 ## Secrets
 
-Secret values live in `playbooks/vars/secrets.yml`, encrypted with Ansible Vault: all the setting values used by `playbooks/system.yml` (layouts, theme, Night Light hours, dock apps, regional formats and so on), the default browser (`work.yml`) and the Flameshot shortcuts (`graphics.yml`), and later Wi-Fi passwords and the like. Whole files can be encrypted too: `playbooks/files/monitors.xml` is the vault-encrypted monitor layout, and the `copy` task decrypts it on the fly. To change it, run `ansible-vault edit --vault-password-file .vault-pass playbooks/files/monitors.xml`. Every `make provision` and `make check` run needs the vault password: it's read from `.vault-pass` in the project root if that file exists, otherwise you're asked for it. `.vault-pass` is git-ignored: create it by hand on each new machine before provisioning.
+Secret values live in `playbooks/vars/secrets.yml`, encrypted with Ansible Vault: all the setting values used by `playbooks/system.yml` (layouts, theme, Night Light hours, dock apps, regional formats and so on), the default browser (`work.yml`) and the Flameshot shortcuts (`graphics.yml`), and the Wi-Fi networks with their passwords (`wifi_networks`, a list of `ssid` and `password`; add a network with `make vault-edit`). Whole files can be encrypted too: `playbooks/files/monitors.xml` is the vault-encrypted monitor layout, and the `copy` task decrypts it on the fly. To change it, run `ansible-vault edit --vault-password-file .vault-pass playbooks/files/monitors.xml`. Every `make provision` and `make check` run needs the vault password: it's read from `.vault-pass` in the project root if that file exists, otherwise you're asked for it. `.vault-pass` is git-ignored: create it by hand on each new machine before provisioning.
 
 | Command | What it does |
 |---|---|
@@ -160,7 +160,9 @@ Keep the password somewhere safe outside the repo (e.g. Bitwarden). Without it, 
 
 The pre-commit hook only works where it's enabled (`make git-hooks`), and `git commit --no-verify` skips it. As a second line of defense, turn on **Secret scanning** and **Push protection** in the GitHub repository settings (Settings → Code security). GitHub then rejects pushes that contain strings that look like secrets.
 
-Tasks that use secrets print the decrypted values to the console, and `make check` (`--diff`) prints whole decrypted files. That's intended: the output stays on the local machine, and only the repository has to stay free of plain-text values. Don't paste that output anywhere public.
+Tasks that use secret settings print the decrypted values to the console, and `make check` (`--diff`) prints whole decrypted files. That's intended: the output stays on the local machine, and only the repository has to stay free of plain-text values. Don't paste that output anywhere public.
+
+Passwords are the exception: they must never reach the console. Every task that handles a password (like `Add Wi-Fi connections`) has `no_log: true`.
 
 ## After provisioning
 
