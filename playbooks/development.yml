@@ -66,11 +66,6 @@
   apt:
     name: ansible
   become: yes
-- name: Uninstall Apache 2
-  apt:
-    name: apache2
-    state: absent
-  become: yes
 - name: Remove useless packages from the cache
   apt:
     autoclean: yes
