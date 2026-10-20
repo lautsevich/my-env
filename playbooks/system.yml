@@ -17,6 +17,24 @@
     key: /org/gnome/desktop/interface/clock-show-seconds
     value: "true"
   tags: [clock]
+- name: Dark theme
+  tags: [dark-theme]
+  block:
+    - name: Prefer dark color scheme
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/color-scheme
+        value: "'prefer-dark'"
+    - name: Use dark GTK theme
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/gtk-theme
+        value: "'Yaru-dark'"
+    - name: Use dark icon theme
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/icon-theme
+        value: "'Yaru-dark'"
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
