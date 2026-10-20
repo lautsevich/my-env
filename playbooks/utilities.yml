@@ -14,6 +14,10 @@
   apt:
     name: gnome-tweaks
   tags: [gnome-tweaks]
+- name: Install Pandoc
+  apt:
+    name: pandoc
+  tags: [pandoc]
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled

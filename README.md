@@ -60,7 +60,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (bound to <kbd>PrtSc</kbd>) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
 | `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
-| `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `ufw` (enables the firewall) |
+| `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `pandoc` (Markdown converter), `ufw` (enables the firewall) |
 | `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `libreoffice` |
 | `entertainment` | `playbooks/entertainment.yml` | `steam` |
 
