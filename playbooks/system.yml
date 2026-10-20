@@ -101,6 +101,19 @@
     key: /org/gnome/shell/favorite-apps
     value: "['firefox_firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.kde.krusader.desktop', 'bitwarden_bitwarden.desktop', 'code_code.desktop', 'telegram-desktop_telegram-desktop.desktop', 'com.anthropic.Claude.desktop', 'spotify_spotify.desktop']"
   tags: [dock]
+- name: Automatic time zone
+  tags: [timezone]
+  block:
+    - name: Enable location services
+      become: false
+      community.general.dconf:
+        key: /org/gnome/system/location/enabled
+        value: "true"
+    - name: Set the time zone automatically
+      become: false
+      community.general.dconf:
+        key: /org/gnome/desktop/datetime/automatic-timezone
+        value: "true"
 - name: Enable Uncomplicated Firewall
   community.general.ufw:
     state: enabled
