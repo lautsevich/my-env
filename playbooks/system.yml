@@ -48,6 +48,18 @@
     dest: "{{ lookup('env', 'HOME') }}/.config/monitors.xml"
     mode: "0664"
   tags: [monitors]
+- name: Allow volume above 100%
+  become: false
+  community.general.dconf:
+    key: /org/gnome/desktop/sound/allow-volume-above-100-percent
+    value: "true"
+  tags: [volume-boost]
+- name: Play the startup sound
+  become: false
+  community.general.dconf:
+    key: /org/gnome/shell/ubuntu/startup-sound
+    value: "'warty-startup'"
+  tags: [startup-sound]
 - name: Night Light
   tags: [night-light]
   block:
