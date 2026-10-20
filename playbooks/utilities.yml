@@ -1,6 +1,6 @@
-- name: Install KeePassXC
+- name: Install Bitwarden
   snap:
-    name: keepassxc
+    name: bitwarden
   become: yes
 - name: Install Midnight Commander
   apt:
