@@ -47,6 +47,8 @@
     src: monitors.xml
     dest: "{{ lookup('env', 'HOME') }}/.config/monitors.xml"
     mode: "0664"
+  no_log: true
+  diff: false
   tags: [monitors]
 - name: Configure volume above 100%
   become: false

@@ -129,6 +129,8 @@ install -m 600 /dev/null .vault-pass && nano .vault-pass
 
 Keep the password somewhere safe outside the repo (e.g. Bitwarden). Without it, nothing in `secrets.yml` can be recovered. Never commit vault files unencrypted: run `make vault-encrypt` before committing. The first line of each file must be `$ANSIBLE_VAULT;1.1;AES256`. When you add a new encrypted file, add it to `VAULT_FILES` in the `Makefile`.
 
+Every task that uses a secret value or copies an encrypted file must have `no_log: true` and `diff: false`. Otherwise Ansible prints the decrypted data in its output, and with `make check` (`--diff`) it prints the whole decrypted file. See the `Set monitor layout` task in `playbooks/system.yml`.
+
 ## After provisioning
 
 - Log out and back in so the `docker` group membership takes effect.
