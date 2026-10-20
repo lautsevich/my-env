@@ -18,3 +18,31 @@
   apt:
     name: pandoc
   tags: [pandoc]
+- name: GPaste
+  tags: [gpaste]
+  vars:
+    gpaste_extension: GPaste@gnome-shell-extensions.gnome.org
+  block:
+    - name: Install GPaste
+      apt:
+        name: gpaste-2
+    - name: Install the GPaste GNOME Shell extension
+      apt:
+        name: gnome-shell-extension-gpaste
+    - name: Check enabled GNOME Shell extensions
+      become: false
+      command: gsettings get org.gnome.shell enabled-extensions
+      register: enabled_extensions
+      changed_when: false
+      check_mode: false
+    - name: Enable the GPaste extension
+      become: false
+      community.general.dconf:
+        key: /org/gnome/shell/enabled-extensions
+        value: "{{ (enabled_extensions.stdout | regex_findall(\"'([^']+)'\") + [gpaste_extension]) | to_json }}"
+      when: gpaste_extension not in enabled_extensions.stdout
+    - name: Configure saving the clipboard history to disk
+      become: false
+      community.general.dconf:
+        key: /org/gnome/GPaste/save-history
+        value: "{{ gpaste_save_history }}"

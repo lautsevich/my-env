@@ -77,7 +77,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (with a keyboard shortcut, value in `secrets.yml`) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
 | `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
-| `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `pandoc` (Markdown converter) |
+| `utilities` | `playbooks/utilities.yml` | `bitwarden`, `mc`, `krusader`, `gnome-tweaks`, `pandoc` (Markdown converter), `gpaste` (clipboard history: GPaste and its GNOME Shell extension, enabled; whether history is saved to disk comes from `secrets.yml`) |
 | `work` | `playbooks/work.yml` | `chromium`, `opera`, `chrome`, `default-browser` (default browser, value in `secrets.yml`), `libreoffice` |
 | `entertainment` | `playbooks/entertainment.yml` | `steam` |
 
