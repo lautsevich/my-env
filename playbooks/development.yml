@@ -62,10 +62,6 @@
   apt:
     name: sshpass
   become: yes
-- name: Install Ansible
-  apt:
-    name: ansible
-  become: yes
 - name: Remove useless packages from the cache
   apt:
     autoclean: yes

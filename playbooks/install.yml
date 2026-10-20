@@ -11,9 +11,6 @@
       tags:
         - always
   roles:
-  - geerlingguy.git
-  - role: oefenweb.git_lfs
-    become: yes
   - role: geerlingguy.php
     become: yes
     vars:
@@ -21,8 +18,6 @@
       php_packages: [php-common, php-json, php-phpdbg, php-dev, php-xml, php-cli, libapache2-mod-php, php-mysql, php-gd, php-curl, php-mbstring, php-zip, php-pear]
       php_enable_webserver: false
   - role: geerlingguy.composer
-    become: yes
-  - role: geerlingguy.ruby
     become: yes
   - role: geerlingguy.nodejs
     become: yes
@@ -34,9 +29,6 @@
       docker_users:
         - "{{ ansible_user_id }}"
   - andrewrothstein.terraform
-  - andrewrothstein.curl
-  - role: anxs.build-essential
-    become: yes
   tasks:
     - name: Disable Apache
       service:
