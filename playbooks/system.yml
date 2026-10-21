@@ -41,13 +41,6 @@
       community.general.dconf:
         key: /org/gnome/desktop/interface/icon-theme
         value: "{{ icon_theme }}"
-- name: Set monitor layout
-  become: false
-  copy:
-    src: monitors.xml
-    dest: "{{ lookup('env', 'HOME') }}/.config/monitors.xml"
-    mode: "0664"
-  tags: [monitors]
 - name: Configure volume above 100%
   become: false
   community.general.dconf:

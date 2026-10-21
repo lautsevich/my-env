@@ -7,7 +7,7 @@ VAULT_PASS_FILE ?= $(CURDIR)/.vault-pass
 VAULT_OPT := $(if $(wildcard $(VAULT_PASS_FILE)),--vault-password-file $(VAULT_PASS_FILE),--ask-vault-pass)
 SECRETS := playbooks/vars/secrets.yml
 # Every file that must be committed only in encrypted form.
-VAULT_FILES := $(SECRETS) playbooks/files/monitors.xml
+VAULT_FILES := $(SECRETS)
 
 provision: galaxy-install
 	@echo "Ansible provision…"
