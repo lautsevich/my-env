@@ -62,7 +62,6 @@ Galaxy roles. All of them carry the `roles` tag (`make provision TAGS=roles`), a
 | Tag | Role | Contents |
 |---|---|---|
 | `php` | `geerlingguy.php`, `geerlingguy.composer` | PHP 8.5 + Composer. Apache is installed with `mod_php` but kept stopped and disabled |
-| `nodejs` | `geerlingguy.nodejs` | Node.js 26.x from NodeSource |
 | `docker` | `geerlingguy.docker` | Docker from Docker's repository; the current user is added to the `docker` group |
 | `terraform` | `andrewrothstein.terraform` | Terraform |
 
@@ -72,7 +71,7 @@ Task groups. All of them carry the `tasks` tag, each has its own group tag, and 
 |---|---|---|
 | `common` | `playbooks/common.yml` | `repositories` (universe/multiverse check), `git-lfs`, `curl`, `build-essential` |
 | `system` | `playbooks/system.yml` | `monitors` (monitor layout), `keyboard` (layouts and switching shortcut), `volume-boost` (volume above 100%), `startup-sound` (startup sound), `no-sleep-on-ac` (automatic suspend on AC power), `battery` (battery percentage in the top bar), `clock` (seconds in the top bar clock), `dark-theme` (color scheme, GTK and icon themes), `night-light` (Night Light and its schedule), `tiling-popup` (Tiling Assistant popup workspaces), `timezone` (location services, automatic time zone), `projects-folder` (projects folder and its Files sidebar bookmark), `files-list-view` (default folder view in Files), `files-columns` (Files list view columns), `region` (regional formats for dates, numbers and currency), `dock` (pinned apps), `wifi` (Wi-Fi networks from `wifi_networks`), `ufw` (firewall). All values come from `playbooks/vars/secrets.yml` |
-| `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `python-docker`, `sshpass` |
+| `development` | `playbooks/development.yml` | `gitkraken`, `vscode`, `gh`, `claude-code`, `claude-desktop`, `nodejs` (Node.js from NodeSource, major version from `NODE_VERSION` in `playbooks/install.yml`), `python-docker`, `sshpass` |
 | `graphics` | `playbooks/graphics.yml` | `inkscape`, `flameshot` (with a keyboard shortcut, value in `secrets.yml`) |
 | `multimedia` | `playbooks/multimedia.yml` | `vlc`, `spotify`, `acestream`, `simplescreenrecorder`, `obs`, `restricted-extras` |
 | `social` | `playbooks/social.yml` | `slack`, `telegram`, `viber`, `discord`, `zoom` |
@@ -136,6 +135,7 @@ gpg --show-keys playbooks/files/keys/example.asc
 | `github-cli.asc` | GitHub CLI | `2C61 0620 1985 B60E 6C7A C873 23F3 D4EA 7571 6059`, `7F38 BBB5 9D06 4DBC B3D8 4D72 5612 B364 6231 3325` |
 | `anthropic.asc` | Claude Code, Claude Desktop | `31DD DE24 DDFA B679 F42D 7BD2 BAA9 29FF 1A7E CACE` |
 | `google.asc` | Google Chrome | `EB4C 1BFD 4F04 2F6D DDCC EC91 7721 F63B D38B 4796` |
+| `nodesource.asc` | Node.js (NodeSource) | `6F71 F525 2828 41EE DAF8 51B4 2F59 B5F9 9B1B E0B4` |
 
 Some vendor packages (Google Chrome, Claude Desktop) add their own apt source on install, with a different key path. That conflicts with the source Ansible added (`Conflicting values set for option Signed-By`). Turn their self-registration off in `/etc/default/<package>` before installing. See the Google Chrome block in `playbooks/work.yml` for an example.
 

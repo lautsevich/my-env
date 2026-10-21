@@ -24,16 +24,6 @@
       php_enable_webserver: false
   - role: geerlingguy.composer
     tags: [roles, php]
-  - role: geerlingguy.nodejs
-    tags: [roles, nodejs]
-    vars:
-      nodejs_version: "{{ NODE_VERSION }}"
-      # TODO: Remove this override once geerlingguy.nodejs sets nodejs_generate_etc_profile
-      # to a boolean in defaults/main.yml. Its default is the string "true" (role 7.0.0),
-      # which ansible-core 2.19+ rejects in `when`. After a fixed release, update the role
-      # (`ansible-galaxy install -r requirements.yml --force`), delete these lines and run
-      # `make provision TAGS=nodejs` to check.
-      nodejs_generate_etc_profile: true
   - role: geerlingguy.docker
     tags: [roles, docker]
     vars:

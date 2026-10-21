@@ -1,5 +1,4 @@
 - src: geerlingguy.php
 - src: geerlingguy.composer
-- src: geerlingguy.nodejs
 - src: geerlingguy.docker
 - src: andrewrothstein.terraform

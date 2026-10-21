@@ -59,6 +59,21 @@
         name: claude-desktop
         update_cache: yes
       ignore_errors: "{{ ansible_check_mode }}"
+- name: Node.js
+  tags: [nodejs]
+  block:
+    - name: Add NodeSource repository
+      deb822_repository:
+        name: nodesource
+        uris: "https://deb.nodesource.com/node_{{ NODE_VERSION }}"
+        suites: nodistro
+        components: main
+        signed_by: "{{ lookup('file', 'keys/nodesource.asc') }}"
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        update_cache: yes
+      ignore_errors: "{{ ansible_check_mode }}"
 - name: Install Python Docker library
   apt:
     name: python3-docker
