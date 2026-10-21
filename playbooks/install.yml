@@ -28,6 +28,8 @@
     tags: [roles, nodejs]
     vars:
       nodejs_version: "{{ NODE_VERSION }}"
+      # The role's default is the string "true", which ansible-core 2.19+ rejects in `when`.
+      nodejs_generate_etc_profile: true
   - role: geerlingguy.docker
     tags: [roles, docker]
     vars:
