@@ -23,6 +23,10 @@
   apt:
     name: build-essential
   tags: [build-essential]
+- name: Install wl-clipboard
+  apt:
+    name: wl-clipboard
+  tags: [wl-clipboard]
 - name: Git LFS
   tags: [git-lfs]
   block:
