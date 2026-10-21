@@ -8,7 +8,7 @@
     # The classic sudo (sudo.ws) ships alongside it and works.
     ansible_become_exe: sudo.ws
     PHP_VERSION: "8.5"
-    NODE_VERSION: "24.x"
+    NODE_VERSION: "26.x"
   pre_tasks:
     - name: Update apt package list
       apt:

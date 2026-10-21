@@ -62,7 +62,7 @@ Galaxy roles. All of them carry the `roles` tag (`make provision TAGS=roles`), a
 | Tag | Role | Contents |
 |---|---|---|
 | `php` | `geerlingguy.php`, `geerlingguy.composer` | PHP 8.5 + Composer. Apache is installed with `mod_php` but kept stopped and disabled |
-| `nodejs` | `geerlingguy.nodejs` | Node.js 24.x from NodeSource |
+| `nodejs` | `geerlingguy.nodejs` | Node.js 26.x from NodeSource |
 | `docker` | `geerlingguy.docker` | Docker from Docker's repository; the current user is added to the `docker` group |
 | `terraform` | `andrewrothstein.terraform` | Terraform |
 
