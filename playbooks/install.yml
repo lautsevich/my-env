@@ -4,6 +4,9 @@
   vars_files:
     - vars/secrets.yml
   vars:
+    # Ubuntu's default sudo is sudo-rs, which rewrites the password prompt Ansible waits for.
+    # The classic sudo (sudo.ws) ships alongside it and works.
+    ansible_become_exe: sudo.ws
     PHP_VERSION: "8.5"
     NODE_VERSION: "24.x"
   pre_tasks:

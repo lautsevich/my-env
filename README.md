@@ -24,6 +24,8 @@ cd ~/Projects/my-env
 
 Run it from your own graphical session, not over SSH: some tasks write GNOME settings to the current user's profile.
 
+Ansible escalates privileges through the classic sudo (`sudo.ws`), not Ubuntu's default `sudo-rs`. `sudo-rs` rewrites the password prompt Ansible waits for, so with it every run fails with *Timed out waiting for become … password prompt*. Both ship with Ubuntu Desktop; the choice is set by `ansible_become_exe` in `playbooks/install.yml`, and your terminal's `sudo` stays `sudo-rs`.
+
 ### Pinning a release (optional)
 
 By default the installer clones `master`. To install a state you've checked instead, tag it and push the tag (`git tag v2026.10.20 && git push origin v2026.10.20`), then download the installer from that tag and pass it as `REF`:
