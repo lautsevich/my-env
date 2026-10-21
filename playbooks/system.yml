@@ -88,12 +88,20 @@
     key: /org/gnome/shell/extensions/tiling-assistant/tiling-popup-all-workspace
     value: "{{ tiling_popup_all_workspaces }}"
   tags: [tiling-popup]
-- name: Pin apps to the dock
-  become: false
-  community.general.dconf:
-    key: /org/gnome/shell/favorite-apps
-    value: "{{ dock_apps }}"
+- name: Dock
   tags: [dock]
+  block:
+    - name: Pin apps to the dock
+      become: false
+      community.general.dconf:
+        key: /org/gnome/shell/favorite-apps
+        value: "{{ dock_apps }}"
+    # Hides icons of unmounted partitions such as OS and RESTORE
+    - name: Show only mounted drives in the dock
+      become: false
+      community.general.dconf:
+        key: /org/gnome/shell/extensions/dash-to-dock/show-mounts-only-mounted
+        value: "true"
 - name: Time zone
   tags: [timezone]
   block:
