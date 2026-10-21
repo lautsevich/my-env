@@ -28,7 +28,10 @@
     tags: [roles, nodejs]
     vars:
       nodejs_version: "{{ NODE_VERSION }}"
-      # The role's default is the string "true", which ansible-core 2.19+ rejects in `when`.
+      # TODO: Remove this override once geerlingguy.nodejs sets nodejs_generate_etc_profile
+      # to a boolean in defaults/main.yml. Its default is the string "true" (role 7.0.0),
+      # which ansible-core 2.19+ rejects in `when`. After a fixed release, run
+      # `make galaxy-install` with the new version, delete these lines and check the run.
       nodejs_generate_etc_profile: true
   - role: geerlingguy.docker
     tags: [roles, docker]
