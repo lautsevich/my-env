@@ -32,14 +32,22 @@
   - role: andrewrothstein.terraform
     tags: [roles, terraform]
   tasks:
-    - name: Set the Apache service state
-      service:
-        name: apache2
-        state: stopped
-        enabled: no
-      ignore_errors: "{{ ansible_check_mode }}"
+    - name: Apache service
       tags:
         - always
+      block:
+        - name: Check whether the Apache service exists
+          command: systemctl list-unit-files apache2.service --no-legend
+          register: apache_unit
+          changed_when: false
+          failed_when: false
+          check_mode: false
+        - name: Set the Apache service state
+          systemd_service:
+            name: apache2
+            state: stopped
+            enabled: false
+          when: apache_unit.stdout | length > 0
     - name: Common tasks
       import_tasks: common.yml
       tags:
