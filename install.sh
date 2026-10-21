@@ -1,14 +1,13 @@
 #!/bin/bash
 # Bootstrap a clean Ubuntu Desktop and provision it.
-# Recommended: download a tagged release, read it, then run it:
-#   TAG=v2026.10.20
-#   curl -fsSLo install.sh "https://raw.githubusercontent.com/lautsevich/my-env/$TAG/install.sh"
+# Recommended: download the installer, read it, then run it:
+#   curl -fsSLo install.sh https://raw.githubusercontent.com/lautsevich/my-env/master/install.sh
 #   less install.sh
-#   REF=$TAG bash install.sh
+#   bash install.sh
 # From a cloned repo:  ./install.sh
 # Dry run (prints commands, runs the playbook in check mode):  add --dry-run
 #
-# REF selects the branch or tag to clone (default: master).
+# Optional: REF selects the branch or tag to clone (default: master).
 
 set -euo pipefail
 
