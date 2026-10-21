@@ -1,4 +1,9 @@
 - name: Install Steam
   snap:
     name: steam
+  register: steam_install
+  # Snap Store intermittently answers "no snap found", which crashes the module
+  retries: 3
+  delay: 10
+  until: steam_install is succeeded
   tags: [steam]
