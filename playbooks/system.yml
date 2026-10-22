@@ -138,6 +138,15 @@
         insertafter: "/Downloads( |$)"
         create: yes
         mode: "0664"
+- name: Bookmark the Desktop folder in the Files sidebar
+  become: false
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.config/gtk-3.0/bookmarks"
+    line: "file://{{ lookup('env', 'HOME') }}/Desktop Desktop"
+    insertbefore: BOF
+    create: yes
+    mode: "0664"
+  tags: [desktop-bookmark]
 - name: Files list view columns
   tags: [files-columns]
   block:
